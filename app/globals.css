@@ -52,36 +52,40 @@ a { color: inherit; text-decoration: none; }
 .eye-field { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
 .eye {
   position: absolute;
-  width: clamp(62px, 7vw, 100px);
-  aspect-ratio: 1.8 / 1;
+  width: clamp(72px, 8vw, 118px);
+  aspect-ratio: 120 / 72;
   opacity: 0;
   transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate));
   animation: eye-cycle 12s ease-in-out infinite;
   animation-delay: var(--delay);
 }
-.eye::before {
-  content: "";
-  position: absolute;
-  inset: 3px 1px;
-  border: 3px solid rgba(244,244,239,.9);
-  border-radius: 58% 0 58% 0;
-  transform: rotate(45deg) scaleY(.72);
-  box-shadow: 0 0 20px rgba(225,29,46,.12);
-}
-.eye::after {
-  content: "";
-  position: absolute;
-  width: 25%;
-  aspect-ratio: 1;
-  left: 50%;
-  top: 50%;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid rgba(244,244,239,.7);
-  box-shadow: 0 0 16px rgba(225,29,46,.6);
-  transform: translate(-50%, -50%);
-  animation: blink 12s ease-in-out infinite;
+.eye-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform-origin: center;
+  animation: eye-blink 12s ease-in-out infinite;
   animation-delay: var(--delay);
+}
+.eye-outline {
+  fill: rgba(244,244,239,.025);
+  stroke: rgba(244,244,239,.95);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.eye-iris {
+  fill: var(--accent);
+  stroke: rgba(244,244,239,.9);
+  stroke-width: 3;
+}
+.eye-pupil { fill: #0a0a0a; }
+.eye-lash {
+  fill: none;
+  stroke: rgba(244,244,239,.85);
+  stroke-width: 4;
+  stroke-linecap: round;
 }
 
 .issue-card { position: relative; overflow: hidden; }
@@ -96,23 +100,23 @@ a { color: inherit; text-decoration: none; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes eye-cycle {
   0%, 8%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); }
-  14%, 30% { opacity: .85; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
-  34%, 40% { opacity: .85; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
+  14%, 30% { opacity: .9; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
+  34%, 40% { opacity: .9; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
   46%, 55% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); }
 }
-@keyframes blink {
-  0%, 28%, 36%, 100% { transform: translate(-50%, -50%) scaleY(1); }
-  31%, 33% { transform: translate(-50%, -50%) scaleY(.08); }
+@keyframes eye-blink {
+  0%, 28%, 36%, 100% { transform: scaleY(1); }
+  31%, 33% { transform: scaleY(.07); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee-track, .eye, .eye::after { animation: none; }
-  .eye { opacity: .45; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
+  .marquee-track, .eye, .eye-svg { animation: none; }
+  .eye { opacity: .7; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
 }
 
 @media (max-width: 700px) {
   .container { width: min(100% - 28px, 1180px); }
   .grid-bg { background-size: 32px 32px; }
-  .eye { width: 50px; }
+  .eye { width: 58px; }
 }
