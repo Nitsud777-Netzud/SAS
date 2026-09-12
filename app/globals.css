@@ -62,10 +62,9 @@ a { color: inherit; text-decoration: none; }
 .eye::before {
   content: "";
   position: absolute;
-  inset: 2px 0;
+  inset: 0;
   border: 2px solid rgba(244,244,239,.82);
-  border-radius: 50% / 75%;
-  transform: scaleY(.62);
+  clip-path: polygon(0 52%, 8% 35%, 22% 18%, 38% 6%, 50% 0, 62% 6%, 78% 18%, 92% 35%, 100% 52%, 92% 69%, 78% 84%, 62% 95%, 50% 100%, 38% 95%, 22% 84%, 8% 69%);
   box-shadow: 0 0 18px rgba(225,29,46,.08);
 }
 .eye::after {
