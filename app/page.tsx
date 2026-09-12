@@ -17,6 +17,17 @@ const eyes = [
   ["73%", "72%", "-6deg"], ["88%", "61%", "10deg"], ["4%", "84%", "-5deg"],
 ];
 
+function Eye() {
+  return (
+    <svg className="eye-svg" viewBox="0 0 120 72" aria-hidden="true">
+      <path className="eye-outline" d="M 5 36 C 30 4, 90 4, 115 36 C 90 68, 30 68, 5 36 Z" />
+      <circle className="eye-iris" cx="60" cy="36" r="17" />
+      <circle className="eye-pupil" cx="60" cy="36" r="8" />
+      <path className="eye-lash" d="M 17 24 L 7 12 M 28 15 L 22 2 M 42 9 L 39 -4 M 78 9 L 81 -4 M 92 15 L 98 2 M 103 24 L 113 12" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -39,7 +50,7 @@ export default function Home() {
 
       <section id="top" className="grid-bg border-b-2 border-[var(--line)] py-20 md:py-28">
         <div className="eye-field" aria-hidden="true">
-          {eyes.map(([left, top, rotate], index) => <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as React.CSSProperties} />)}
+          {eyes.map(([left, top, rotate], index) => <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as React.CSSProperties}><Eye /></span>)}
         </div>
         <div className="container">
           <p className="hero-copy mb-6 text-xs font-black tracking-[.2em] text-[var(--muted)]">YOUTH-LED • INLAND EMPIRE • CALIFORNIA</p>
