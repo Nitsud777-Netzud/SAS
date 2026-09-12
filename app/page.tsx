@@ -10,6 +10,13 @@ const issues = [
   ["03", "THE RESEARCH", "Read the sources and documentation behind our work."],
 ];
 
+const eyes = [
+  ["8%", "12%", "-8deg"], ["25%", "30%", "9deg"], ["42%", "10%", "-3deg"],
+  ["61%", "25%", "12deg"], ["78%", "9%", "-10deg"], ["90%", "36%", "5deg"],
+  ["16%", "62%", "7deg"], ["36%", "76%", "-12deg"], ["55%", "58%", "4deg"],
+  ["73%", "72%", "-6deg"], ["88%", "61%", "10deg"], ["4%", "84%", "-5deg"],
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,11 +37,14 @@ export default function Home() {
 
       <div className="marquee"><div className="marquee-track"><span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span><span aria-hidden="true">STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span></div></div>
 
-      <section id="top" className="grid-bg scanline border-b-2 border-[var(--line)] py-20 md:py-28">
+      <section id="top" className="grid-bg border-b-2 border-[var(--line)] py-20 md:py-28">
+        <div className="eye-field" aria-hidden="true">
+          {eyes.map(([left, top, rotate], index) => <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as React.CSSProperties} />)}
+        </div>
         <div className="container">
-          <p className="mb-6 text-xs font-black tracking-[.2em] text-[var(--muted)]">YOUTH-LED • INLAND EMPIRE • CALIFORNIA</p>
+          <p className="hero-copy mb-6 text-xs font-black tracking-[.2em] text-[var(--muted)]">YOUTH-LED • INLAND EMPIRE • CALIFORNIA</p>
           <h1 className="display hero-word max-w-5xl text-[clamp(4rem,11vw,9.5rem)] leading-[.82] uppercase">Students<br/><span className="bg-[var(--accent)] px-2 text-white">Against</span><br/>Surveillance.</h1>
-          <div className="mt-12 grid gap-8 md:grid-cols-[1fr_360px] md:items-end">
+          <div className="hero-copy mt-12 grid gap-8 md:grid-cols-[1fr_360px] md:items-end">
             <p className="max-w-2xl text-xl font-medium leading-relaxed md:text-2xl">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
               <a href="#the-issue" className="border-2 border-[var(--line)] px-5 py-4 text-center text-sm font-black tracking-widest transition hover:border-white hover:bg-white hover:text-black">LEARN ABOUT THE ISSUE ↘</a>
