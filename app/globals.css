@@ -51,8 +51,8 @@ a { color: inherit; text-decoration: none; }
 .hero-word { text-shadow: 0 0 50px rgba(225,29,46,.06); position: relative; z-index: 1; }
 .hero-copy { position: relative; z-index: 1; }
 
-.watch-button { cursor: pointer; }
-.watcher-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgba(0,0,0,.78); backdrop-filter: blur(5px); animation: overlay-in .18s ease-out; }
+.watch-button { cursor: default; }
+.watcher-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; background: rgba(0,0,0,.78); backdrop-filter: blur(5px); animation: watcher-fade 5.2s ease-in forwards; pointer-events: none; }
 .watcher-overlay > div { width: min(520px, 100%); animation: watcher-pop .35s cubic-bezier(.16,1,.3,1); }
 .watcher-popup { position: relative; min-height: 300px; overflow: hidden; border: 2px solid var(--accent); background: #080808; box-shadow: 14px 14px 0 var(--accent); }
 .watcher-scan { position: absolute; inset: 0; background: repeating-linear-gradient(to bottom, transparent 0 11px, rgba(225,29,46,.14) 12px 13px); animation: scan 2.8s linear infinite; pointer-events: none; }
@@ -69,8 +69,8 @@ a { color: inherit; text-decoration: none; }
 @keyframes eye-cycle { 0%, 8%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); } 14%, 30% { opacity: .9; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); } 34%, 40% { opacity: .9; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); } 46%, 55% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); } }
 @keyframes eye-blink { 0%, 28%, 36%, 100% { transform: scaleY(1); } 31%, 33% { transform: scaleY(.07); } }
 @keyframes scan { from { transform: translateY(-20%); } to { transform: translateY(20%); } }
-@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes watcher-fade { 0%, 65% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 @keyframes watcher-pop { from { opacity: 0; transform: scale(.82) rotate(-2deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .marquee-track, .eye, .eye-svg, .watcher-scan { animation: none; } .eye { opacity: .7; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .marquee-track, .eye, .eye-svg, .watcher-scan { animation: none; } .eye { opacity: .7; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); } .watcher-overlay { animation: none; } }
 @media (max-width: 700px) { .container { width: min(100% - 28px, 1180px); } .grid-bg { background-size: 32px 32px; } .eye { width: 58px; } .watcher-overlay { padding: 16px; } .watcher-popup { box-shadow: 8px 8px 0 var(--accent); } }
