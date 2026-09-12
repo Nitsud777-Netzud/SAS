@@ -50,9 +50,39 @@ a { color: inherit; text-decoration: none; }
 .marquee span { display: inline-block; padding: 9px 40px 9px 0; font-weight: 900; letter-spacing: .12em; font-size: 12px; }
 
 .eye-field { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-.eye { position: absolute; width: 54px; height: 30px; opacity: 0; transform: scale(.2) rotate(var(--rotate)); animation: eye-cycle 12s ease-in-out infinite; animation-delay: var(--delay); }
-.eye::before { content: ""; position: absolute; inset: 2px 0; border: 2px solid rgba(244,244,239,.65); border-radius: 50% 0; transform: rotate(45deg) scaleY(.72); }
-.eye::after { content: ""; position: absolute; width: 12px; height: 12px; left: 50%; top: 50%; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px rgba(225,29,46,.55); transform: translate(-50%, -50%); animation: blink 12s ease-in-out infinite; animation-delay: var(--delay); }
+.eye {
+  position: absolute;
+  width: clamp(48px, 6vw, 86px);
+  aspect-ratio: 1.65 / 1;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate));
+  animation: eye-cycle 12s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+.eye::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border: 2px solid rgba(244,244,239,.8);
+  border-radius: 55% 0 55% 0;
+  transform: rotate(45deg) scaleX(.88) scaleY(.72);
+  box-shadow: 0 0 18px rgba(225,29,46,.08);
+}
+.eye::after {
+  content: "";
+  position: absolute;
+  width: 27%;
+  aspect-ratio: 1;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid rgba(244,244,239,.65);
+  box-shadow: 0 0 16px rgba(225,29,46,.55);
+  transform: translate(-50%, -50%);
+  animation: blink 12s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
 
 .issue-card { position: relative; overflow: hidden; }
 .issue-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform .3s ease; }
@@ -65,10 +95,10 @@ a { color: inherit; text-decoration: none; }
 
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes eye-cycle {
-  0%, 8%, 100% { opacity: 0; transform: scale(.2) rotate(var(--rotate)); }
-  14%, 30% { opacity: .75; transform: scale(1) rotate(var(--rotate)); }
-  34%, 40% { opacity: .75; transform: scale(1) rotate(var(--rotate)); }
-  46%, 55% { opacity: 0; transform: scale(.2) rotate(var(--rotate)); }
+  0%, 8%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); }
+  14%, 30% { opacity: .8; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
+  34%, 40% { opacity: .8; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
+  46%, 55% { opacity: 0; transform: translate(-50%, -50%) scale(.2) rotate(var(--rotate)); }
 }
 @keyframes blink {
   0%, 28%, 36%, 100% { transform: translate(-50%, -50%) scaleY(1); }
@@ -78,12 +108,11 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .marquee-track, .eye, .eye::after { animation: none; }
-  .eye { opacity: .45; transform: scale(1) rotate(var(--rotate)); }
+  .eye { opacity: .45; transform: translate(-50%, -50%) scale(1) rotate(var(--rotate)); }
 }
 
 @media (max-width: 700px) {
   .container { width: min(100% - 28px, 1180px); }
   .grid-bg { background-size: 32px 32px; }
-  .eye { width: 40px; height: 24px; }
-  .eye::after { width: 9px; height: 9px; }
+  .eye { width: 42px; }
 }
