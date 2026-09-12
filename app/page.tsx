@@ -28,8 +28,23 @@ function Eye() {
   );
 }
 
+function Watcher() {
+  return (
+    <div className="relative min-h-[280px] overflow-hidden border-2 border-[var(--accent)] bg-[#080808]">
+      <div className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_11px,rgba(225,29,46,.14)_12px_13px)] motion-safe:animate-pulse" />
+      <p className="absolute left-3 top-3 z-10 text-[9px] font-black tracking-[.18em] text-[var(--accent)]">SURVEILLANCE FEED / SUBJECT 01</p>
+      <div className="absolute left-1/2 top-[43%] h-28 w-24 -translate-x-1/2 -translate-y-1/2 rounded-[48%_48%_44%_44%] border-[5px] border-[#f4f4ef] bg-[#161616]">
+        <div className="absolute left-[22px] top-[38px] h-3 w-3 rounded-full bg-[var(--accent)] shadow-[35px_0_0_var(--accent)]" />
+        <div className="absolute bottom-[19px] left-[29px] h-[10px] w-7 rounded-[50%] border-b-4 border-[#f4f4ef]" />
+      </div>
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 -rotate-2 whitespace-nowrap bg-[#f4f4ef] px-5 py-2 font-[Impact,Haettenschweiler,'Arial_Narrow_Bold',sans-serif] text-3xl text-black shadow-[7px_7px_0_var(--accent)]">I AM!</div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [watcherOpen, setWatcherOpen] = useState(false);
 
   return (
     <main>
@@ -65,13 +80,18 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="container border-b-2 border-[var(--line)] py-20 md:py-28">
-        <div className="grid gap-12 md:grid-cols-[.7fr_1.3fr]">
-          <p className="text-xs font-black tracking-[.2em] text-[var(--muted)]">01 / ABOUT S.A.S.</p>
-          <div>
-            <h2 className="display max-w-4xl text-5xl uppercase leading-[.95] md:text-7xl">Privacy affects every student.</h2>
-            <p className="mt-8 max-w-3xl text-lg leading-8 text-[var(--muted)]">S.A.S. is currently based in Redlands and the Inland Empire. We are building a youth movement that can research, educate, organize, and advocate around surveillance in our schools and communities.</p>
-            <div className="mt-10 grid grid-cols-2 gap-px border border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"><div className="bg-[var(--paper)] p-5"><p className="text-2xl font-black text-[var(--accent)]">01</p><p className="mt-2 text-xs font-black tracking-widest">RESEARCH</p></div><div className="bg-[var(--paper)] p-5"><p className="text-2xl font-black text-[var(--accent)]">02</p><p className="mt-2 text-xs font-black tracking-widest">EDUCATE</p></div><div className="bg-[var(--paper)] p-5"><p className="text-2xl font-black text-[var(--accent)]">03</p><p className="mt-2 text-xs font-black tracking-widest">ORGANIZE</p></div></div>
+      <section id="about" className="relative overflow-hidden border-b-2 border-black bg-[var(--accent)] py-20 text-white md:py-28">
+        <div className="pointer-events-none absolute -bottom-10 right-[-2vw] select-none font-[Impact,Haettenschweiler,'Arial_Narrow_Bold',sans-serif] text-[clamp(13rem,30vw,32rem)] leading-[.7] tracking-[-.06em] text-black/10">S.A.S.</div>
+        <div className="container relative">
+          <div className="grid gap-12 md:grid-cols-[.7fr_1.3fr]">
+            <p className="text-xs font-black tracking-[.2em] text-white/80 before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">01 / ABOUT S.A.S.</p>
+            <div>
+              <h2 className="display max-w-4xl text-5xl uppercase leading-[.95] md:text-7xl">Privacy affects every student.</h2>
+              <p className="mt-8 max-w-3xl text-lg leading-8 text-white/80">S.A.S. is currently based in Redlands and the Inland Empire. We are building a youth movement that can research, educate, organize, and advocate around surveillance in our schools and communities.</p>
+              <div className="mt-10 grid grid-cols-2 gap-px border border-black/30 bg-black/30 sm:grid-cols-3">
+                {[['01','RESEARCH'],['02','EDUCATE'],['03','ORGANIZE']].map(([n,t]) => <div key={n} className="p-5"><p className="text-2xl font-black text-black/80">{n}</p><p className="mt-2 text-xs font-black tracking-widest">{t}</p></div>)}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -79,9 +99,23 @@ export default function Home() {
       <section id="the-issue" className="border-b-2 border-[var(--line)] bg-[var(--panel)] py-20 md:py-28">
         <div className="container">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)]">02 / THE ISSUE</p><h2 className="display max-w-4xl text-6xl uppercase leading-[.9] md:text-8xl">Know what is<br/>watching you.</h2></div>
+            <div><p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)] before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">02 / THE ISSUE</p><h2 className="display max-w-4xl text-6xl uppercase leading-[.9] md:text-8xl">Know what is<br/>watching you.</h2></div>
             <p className="max-w-sm text-sm leading-6 text-neutral-400">Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems is the first step toward meaningful public debate.</p>
           </div>
+
+          <div className="watch-reveal mb-10 border-y border-neutral-700 py-5">
+            <button type="button" onClick={() => setWatcherOpen(!watcherOpen)} aria-expanded={watcherOpen} className="watch-button flex w-full items-center justify-between text-left">
+              <span><span className="text-xs font-black tracking-[.2em] text-[var(--accent)]">INTERACTIVE / 01</span><span className="mt-2 block text-2xl font-black uppercase md:text-3xl">Know who is watching you.</span></span>
+              <span className="ml-5 flex h-12 w-12 shrink-0 items-center justify-center border-2 border-[var(--accent)] text-xl transition-transform duration-300" style={{ transform: watcherOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}>+</span>
+            </button>
+            <div className={`grid transition-[grid-template-rows,opacity,margin] duration-500 ${watcherOpen ? 'mt-5 grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+              <div className="min-h-0 overflow-hidden">
+                <Watcher />
+                <p className="mt-3 text-xs font-black uppercase tracking-widest text-neutral-500">The point isn't to identify one person. It's to make the system visible.</p>
+              </div>
+            </div>
+          </div>
+
           <div className="grid border-t border-neutral-700 md:grid-cols-3">
             {issues.map(([n,t,d]) => <a href="#" key={n} className="issue-card border-b border-neutral-700 p-7 transition hover:bg-white hover:text-black md:border-r md:last:border-r-0"><span className="text-xs font-black text-[var(--accent)]">{n}</span><h3 className="display mt-10 text-3xl uppercase">{t}</h3><p className="mt-4 text-sm leading-6 text-neutral-400">{d}</p><span className="issue-arrow mt-8 block font-black">READ MORE ↗</span></a>)}
           </div>
@@ -100,6 +134,14 @@ export default function Home() {
       <section id="updates" className="container py-20 md:py-28">
         <div className="flex items-end justify-between border-b-2 border-[var(--line)] pb-5"><div><p className="mb-4 text-xs font-black tracking-[.2em] text-[var(--muted)]">04 / UPDATES</p><h2 className="display text-5xl uppercase md:text-7xl">What's happening</h2></div><a href="#" className="hidden text-xs font-black tracking-widest text-[var(--accent)] underline sm:block">ALL UPDATES ↗</a></div>
         <div className="grid gap-px border-b border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">FIELD NOTE / 001</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Research, campaigns, and events will be published here as S.A.S. grows.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">COMING SOON</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Follow S.A.S. for new research and organizing updates.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">SIGNAL</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">The next chapter is being built by students.</p></div></div>
+      </section>
+
+      <section className="border-t-2 border-black bg-[var(--accent)] py-16 text-white md:py-24">
+        <div className="container relative overflow-hidden">
+          <p className="text-xs font-black tracking-[.2em] text-white/75">05 / TAKE BACK YOUR PRIVACY</p>
+          <h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2>
+          <a href="#get-involved" className="mt-10 inline-block bg-black px-7 py-5 text-sm font-black tracking-widest text-white transition hover:bg-white hover:text-black">TAKE ACTION ↗</a>
+        </div>
       </section>
 
       <footer className="border-t-2 border-[var(--line)] bg-[#050505] py-10 text-white">
