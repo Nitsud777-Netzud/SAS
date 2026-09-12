@@ -33,9 +33,7 @@ function Watcher() {
     <div className="watcher-popup">
       <div className="watcher-scan" />
       <p className="watcher-meta">SURVEILLANCE FEED / SUBJECT 01</p>
-      <div className="watcher-face">
-        <div className="watcher-eyes" />
-      </div>
+      <div className="watcher-face"><div className="watcher-eyes" /></div>
       <div className="watcher-sign">I AM!</div>
     </div>
   );
@@ -46,16 +44,12 @@ export default function Home() {
   const [watcherOpen, setWatcherOpen] = useState(false);
   const watcherTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useEffect(() => {
-    return () => {
-      if (watcherTimer.current) clearTimeout(watcherTimer.current);
-    };
-  }, []);
+  useEffect(() => () => { if (watcherTimer.current) clearTimeout(watcherTimer.current); }, []);
 
   const revealWatcher = () => {
     setWatcherOpen(true);
     if (watcherTimer.current) clearTimeout(watcherTimer.current);
-    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 3000);
+    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 3200);
   };
 
   const handleWatcherKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
@@ -101,14 +95,14 @@ export default function Home() {
 
       <section id="about" className="about-section py-20 md:py-28">
         <div className="container relative">
-          <div className="grid gap-7">
+          <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-14">
             <div>
               <p className="section-kicker text-xs font-black tracking-[.2em]">01 / ABOUT S.A.S.</p>
               <div className="mt-7 flex flex-col border-y border-black/35 bg-black/20">
                 {[['01','RESEARCH'],['02','EDUCATE'],['03','ORGANIZE']].map(([n,t]) => <div key={n} className="flex items-center gap-4 border-b border-black/35 px-4 py-4 last:border-b-0"><span className="text-xl font-black text-black/75">{n}</span><span className="text-[10px] font-black tracking-[.16em]">{t}</span></div>)}
               </div>
             </div>
-            <div>
+            <div className="md:pt-10">
               <h2 className="display max-w-4xl text-5xl uppercase leading-[.95] md:text-7xl">Privacy affects every student.</h2>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-white/80">S.A.S. is currently based in Redlands and the Inland Empire. We are building a youth movement that can research, educate, organize, and advocate around surveillance in our schools and communities.</p>
             </div>
@@ -118,19 +112,10 @@ export default function Home() {
 
       <section id="the-issue" className="border-b-2 border-[var(--line)] bg-[var(--panel)] py-20 md:py-28">
         <div className="container">
-          <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
+          <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <div className="max-w-4xl">
               <p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)] before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">02 / THE ISSUE</p>
-              <h2
-                className="display max-w-4xl cursor-default text-6xl uppercase leading-[.9] md:text-8xl"
-                role="button"
-                tabIndex={0}
-                aria-label="Know what is watching you"
-                onClick={revealWatcher}
-                onKeyDown={handleWatcherKeyDown}
-              >
-                Know what is<br/>watching you.
-              </h2>
+              <h2 className="display max-w-4xl cursor-default text-6xl uppercase leading-[.9] md:text-8xl" role="button" tabIndex={0} aria-label="Know who is watching you" onClick={revealWatcher} onKeyDown={handleWatcherKeyDown}>Know who is<br/>watching you.</h2>
             </div>
             <p className="max-w-sm text-sm leading-6 text-neutral-400">Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems is the first step toward meaningful public debate.</p>
           </div>
@@ -138,30 +123,19 @@ export default function Home() {
           {watcherOpen && <div className="watcher-overlay" role="dialog" aria-label="Surveillance feed"><div><Watcher /></div></div>}
 
           <div className="grid border-t border-neutral-700 md:grid-cols-3">
-            {issues.map(([n,t,d]) => <a href="#" key={n} className="issue-card border-b border-neutral-700 p-7 transition hover:bg-white hover:text-black md:border-r md:last:border-r-0"><span className="text-xs font-black text-[var(--accent)]">{n}</span><h3 className="display mt-10 text-3xl uppercase">{t}</h3><p className="mt-4 text-sm leading-6 text-neutral-400">{d}</p><span className="issue-arrow mt-8 block font-black">READ MORE ↗</span></a>)}
+            {issues.map(([n,t,d]) => <a href="#the-issue" key={n} className="issue-card border-b border-neutral-700 p-7 transition hover:bg-white hover:text-black md:border-r md:last:border-r-0"><span className="text-xs font-black text-[var(--accent)]">{n}</span><h3 className="display mt-10 text-3xl uppercase">{t}</h3><p className="mt-4 text-sm leading-6 text-neutral-400">{d}</p><span className="issue-arrow mt-8 block font-black">READ MORE ↗</span></a>)}
           </div>
         </div>
       </section>
 
       <section id="updates" className="container py-20 md:py-28">
-        <div className="flex items-end justify-between border-b-2 border-[var(--line)] pb-5"><div><p className="mb-4 text-xs font-black tracking-[.2em] text-[var(--muted)]">03 / UPDATES</p><h2 className="display text-5xl uppercase md:text-7xl">What's happening</h2></div><a href="#" className="hidden text-xs font-black tracking-widest text-[var(--accent)] underline sm:block">ALL UPDATES ↗</a></div>
+        <div className="flex items-end justify-between border-b-2 border-[var(--line)] pb-5"><div><p className="mb-4 text-xs font-black tracking-[.2em] text-[var(--muted)]">03 / UPDATES</p><h2 className="display text-5xl uppercase md:text-7xl">What's happening</h2></div><a href="#updates" className="hidden text-xs font-black tracking-widest text-[var(--accent)] underline sm:block">ALL UPDATES ↗</a></div>
         <div className="grid gap-px border-b border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">FIELD NOTE / 001</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Research, campaigns, and events will be published here as S.A.S. grows.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">COMING SOON</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Follow S.A.S. for new research and organizing updates.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">SIGNAL</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">The next chapter is being built by students.</p></div></div>
       </section>
 
-      <section className="final-cta border-t-2 border-black py-16 text-white md:py-24">
-        <div className="container relative overflow-hidden">
-          <p className="text-xs font-black tracking-[.2em] text-white/75">04 / TAKE BACK YOUR PRIVACY</p>
-          <h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2>
-          <a href="#updates" className="mt-10 inline-block bg-black px-7 py-5 text-sm font-black tracking-widest text-white transition hover:bg-white hover:text-black">STAY INFORMED ↗</a>
-        </div>
-      </section>
+      <section className="final-cta border-t-2 border-black py-16 text-white md:py-24"><div className="container relative overflow-hidden"><p className="text-xs font-black tracking-[.2em] text-white/75">04 / TAKE BACK YOUR PRIVACY</p><h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2><a href="#updates" className="mt-10 inline-block bg-black px-7 py-5 text-sm font-black tracking-widest text-white transition hover:bg-white hover:text-black">STAY INFORMED ↗</a></div></section>
 
-      <footer className="border-t-2 border-[var(--line)] bg-[#050505] py-10 text-white">
-        <div className="container flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div><div className="display text-3xl">S.A.S.</div><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div>
-          <p className="text-[10px] font-black tracking-widest text-[var(--muted)]">INLAND EMPIRE • CALIFORNIA</p>
-        </div>
-      </footer>
+      <footer className="border-t-2 border-[var(--line)] bg-[#050505] py-10 text-white"><div className="container flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><div className="display text-3xl">S.A.S.</div><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div><p className="text-[10px] font-black tracking-widest text-[var(--muted)]">INLAND EMPIRE • CALIFORNIA</p></div></footer>
     </main>
   );
 }
