@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const nav = ["ABOUT", "THE ISSUE", "UPDATES"];
 
@@ -44,6 +44,19 @@ function Watcher() {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [watcherOpen, setWatcherOpen] = useState(false);
+  const watcherTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (watcherTimer.current) clearTimeout(watcherTimer.current);
+    };
+  }, []);
+
+  const revealWatcher = () => {
+    setWatcherOpen(true);
+    if (watcherTimer.current) clearTimeout(watcherTimer.current);
+    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 5200);
+  };
 
   return (
     <main>
@@ -84,8 +97,8 @@ export default function Home() {
           <div className="grid gap-7">
             <div>
               <p className="section-kicker text-xs font-black tracking-[.2em]">01 / ABOUT S.A.S.</p>
-              <div className="mt-7 flex flex-wrap gap-0 border-y border-black/35 bg-black/20 sm:flex-nowrap">
-                {[['01','RESEARCH'],['02','EDUCATE'],['03','ORGANIZE']].map(([n,t]) => <div key={n} className="flex min-w-[33.333%] flex-1 items-center gap-3 border-b border-black/35 px-4 py-4 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"><span className="text-xl font-black text-black/75">{n}</span><span className="text-[10px] font-black tracking-[.16em]">{t}</span></div>)}
+              <div className="mt-7 flex flex-col border-y border-black/35 bg-black/20">
+                {[['01','RESEARCH'],['02','EDUCATE'],['03','ORGANIZE']].map(([n,t]) => <div key={n} className="flex items-center gap-4 border-b border-black/35 px-4 py-4 last:border-b-0"><span className="text-xl font-black text-black/75">{n}</span><span className="text-[10px] font-black tracking-[.16em]">{t}</span></div>)}
               </div>
             </div>
             <div>
@@ -103,14 +116,14 @@ export default function Home() {
             <p className="max-w-sm text-sm leading-6 text-neutral-400">Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems is the first step toward meaningful public debate.</p>
           </div>
 
-          <div className="watch-reveal mb-10 border-y border-neutral-700 py-5">
-            <button type="button" onClick={() => setWatcherOpen(true)} aria-label="Reveal the watcher" className="watch-button group flex w-full items-center justify-between text-left">
-              <span><span className="text-xs font-black tracking-[.2em] text-[var(--accent)]">CLASSIFIED / 01</span><span className="mt-2 block text-2xl font-black uppercase transition group-hover:text-[var(--accent)] md:text-3xl">Know who is watching you.</span></span>
-              <span className="ml-5 text-xs font-black tracking-widest text-neutral-600 transition group-hover:text-[var(--accent)]">?</span>
+          <div className="mb-10">
+            <p className="mb-2 text-xs font-black tracking-[.2em] text-[var(--accent)]">CLASSIFIED / 01</p>
+            <button type="button" onClick={revealWatcher} aria-label="Know who is watching you" className="watch-button group cursor-default bg-transparent p-0 text-left text-2xl font-black uppercase md:text-3xl">
+              <span className="transition group-hover:text-[var(--accent)]">Know who is watching you.</span>
             </button>
           </div>
 
-          {watcherOpen && <div className="watcher-overlay" role="dialog" aria-label="Surveillance feed" onClick={() => setWatcherOpen(false)}><div onClick={(event) => event.stopPropagation()}><Watcher /><p className="mt-3 text-center text-[10px] font-black uppercase tracking-widest text-neutral-500">Click anywhere outside to dismiss</p></div></div>}
+          {watcherOpen && <div className="watcher-overlay" role="dialog" aria-label="Surveillance feed"><div><Watcher /></div></div>}
 
           <div className="grid border-t border-neutral-700 md:grid-cols-3">
             {issues.map(([n,t,d]) => <a href="#" key={n} className="issue-card border-b border-neutral-700 p-7 transition hover:bg-white hover:text-black md:border-r md:last:border-r-0"><span className="text-xs font-black text-[var(--accent)]">{n}</span><h3 className="display mt-10 text-3xl uppercase">{t}</h3><p className="mt-4 text-sm leading-6 text-neutral-400">{d}</p><span className="issue-arrow mt-8 block font-black">READ MORE ↗</span></a>)}
