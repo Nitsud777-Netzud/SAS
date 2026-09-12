@@ -55,7 +55,14 @@ export default function Home() {
   const revealWatcher = () => {
     setWatcherOpen(true);
     if (watcherTimer.current) clearTimeout(watcherTimer.current);
-    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 5200);
+    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 3000);
+  };
+
+  const handleWatcherKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      revealWatcher();
+    }
   };
 
   return (
@@ -112,15 +119,20 @@ export default function Home() {
       <section id="the-issue" className="border-b-2 border-[var(--line)] bg-[var(--panel)] py-20 md:py-28">
         <div className="container">
           <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div><p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)] before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">02 / THE ISSUE</p><h2 className="display max-w-4xl text-6xl uppercase leading-[.9] md:text-8xl">Know what is<br/>watching you.</h2></div>
+            <div>
+              <p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)] before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">02 / THE ISSUE</p>
+              <h2
+                className="display max-w-4xl cursor-default text-6xl uppercase leading-[.9] md:text-8xl"
+                role="button"
+                tabIndex={0}
+                aria-label="Know what is watching you"
+                onClick={revealWatcher}
+                onKeyDown={handleWatcherKeyDown}
+              >
+                Know what is<br/>watching you.
+              </h2>
+            </div>
             <p className="max-w-sm text-sm leading-6 text-neutral-400">Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems is the first step toward meaningful public debate.</p>
-          </div>
-
-          <div className="mb-10">
-            <p className="mb-2 text-xs font-black tracking-[.2em] text-[var(--accent)]">CLASSIFIED / 01</p>
-            <button type="button" onClick={revealWatcher} aria-label="Know who is watching you" className="watch-button group cursor-default bg-transparent p-0 text-left text-2xl font-black uppercase md:text-3xl">
-              <span className="transition group-hover:text-[var(--accent)]">Know who is watching you.</span>
-            </button>
           </div>
 
           {watcherOpen && <div className="watcher-overlay" role="dialog" aria-label="Surveillance feed"><div><Watcher /></div></div>}
