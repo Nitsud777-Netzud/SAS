@@ -7,7 +7,7 @@ html::-webkit-scrollbar { width:10px; }
 html::-webkit-scrollbar-track { background:#0a0a0a; border-left:1px solid #252522; }
 html::-webkit-scrollbar-thumb { background:var(--accent); border:2px solid #0a0a0a; border-radius:0; }
 html::-webkit-scrollbar-thumb:hover { background:#f4f4ef; }
-body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-oswald),Arial,Helvetica,sans-serif; overflow-x:hidden; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--font-google-sans),Arial,Helvetica,sans-serif; overflow-x:hidden; }
 a { color:inherit; text-decoration:none; }
 ::selection { background:var(--accent); color:#fff; }
 .display { font-family:var(--font-rubik-spray-paint),Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif; letter-spacing:.01em; }
@@ -21,7 +21,6 @@ a { color:inherit; text-decoration:none; }
 .about-section::before { content:"S.A.S."; position:absolute; right:-2vw; bottom:-8vw; z-index:-1; font-family:var(--font-rubik-spray-paint),Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif; font-size:clamp(13rem,30vw,32rem); line-height:.7; letter-spacing:-.02em; color:rgba(0,0,0,.12); pointer-events:none; }
 .about-section::after { content:""; position:absolute; inset:0; z-index:-1; pointer-events:none; opacity:.16; background-image:linear-gradient(135deg,transparent 0 48%,rgba(255,255,255,.5) 49% 50%,transparent 51% 100%); background-size:22px 22px; mix-blend-mode:overlay; }
 .section-kicker { position:relative; display:inline-flex; align-items:center; gap:10px; }
-.section-kicker::before { content:""; width:28px; height:2px; background:currentColor; }
 .eye-field { position:absolute; inset:0; pointer-events:none; z-index:0; }
 .eye { position:absolute; width:clamp(72px,8vw,118px); aspect-ratio:120/72; opacity:0; transform:translate(-50%,-50%) scale(.2) rotate(var(--rotate)); animation:eye-cycle 12s ease-in-out infinite; animation-delay:var(--delay); }
 .eye-svg { display:block; width:100%; height:100%; overflow:visible; transform-origin:center; animation:eye-blink 12s ease-in-out infinite; animation-delay:var(--delay); }
@@ -34,7 +33,7 @@ a { color:inherit; text-decoration:none; }
 .issue-card:hover::before { transform:scaleY(1); }
 .issue-card:hover .issue-arrow { transform:translate(4px,-4px); }
 .issue-card:hover p { color:#171717; }
-.issue-arrow { transition:transform .25s ease; }
+.issue-arrow { transition:transform .25s ease; font-family:var(--font-oswald),sans-serif; }
 .hero-word { text-shadow:0 0 50px rgba(225,29,46,.06); position:relative; z-index:1; }
 .hero-copy { position:relative; z-index:1; }
 .watch-heading { outline:none; }
@@ -47,7 +46,7 @@ a { color:inherit; text-decoration:none; }
 .watcher-eyes::before { content:""; position:absolute; left:22px; top:38px; width:12px; height:12px; border-radius:50%; background:var(--accent); box-shadow:35px 0 0 var(--accent); }
 .watcher-eyes::after { content:""; position:absolute; left:29px; bottom:19px; width:28px; height:10px; border-bottom:4px solid #f4f4ef; border-radius:50%; }
 .watcher-sign { position:absolute; left:50%; bottom:20px; transform:translateX(-50%) rotate(-2deg); padding:8px 18px; background:#f4f4ef; color:#090909; font-family:var(--font-rubik-spray-paint),Impact,Haettenschweiler,"Arial Narrow Bold",sans-serif; font-size:27px; letter-spacing:.01em; box-shadow:7px 7px 0 var(--accent); white-space:nowrap; }
-.watcher-meta { position:absolute; left:12px; top:10px; z-index:2; font-size:9px; font-weight:900; letter-spacing:.15em; color:var(--accent); }
+.watcher-meta { position:absolute; left:12px; top:10px; z-index:2; font-size:9px; font-weight:900; letter-spacing:.15em; color:var(--accent); font-family:var(--font-oswald),sans-serif; }
 .final-cta { position:relative; overflow:hidden; background:var(--accent); color:#fff; }
 .final-cta::after { content:"NO CONSENT / NO SILENCE"; position:absolute; right:-30px; bottom:10px; font-size:clamp(2rem,7vw,7rem); font-weight:900; letter-spacing:-.05em; white-space:nowrap; opacity:.1; transform:rotate(-4deg); pointer-events:none; }
 @keyframes marquee { to { transform:translateX(-50%); } }
