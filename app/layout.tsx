@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Micro_5, Oswald, Rubik_Spray_Paint } from "next/font/google";
+import { Google_Sans, Micro_5, Oswald, Rubik_Spray_Paint } from "next/font/google";
 import "./globals.css";
 
 const micro5 = Micro_5({
   variable: "--font-micro-5",
   subsets: ["latin"],
   weight: "400",
+});
+
+const googleSans = Google_Sans({
+  variable: "--font-google-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const oswald = Oswald({
@@ -27,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${micro5.variable} ${oswald.variable} ${rubikSprayPaint.variable}`}>
+    <html lang="en" className={`${micro5.variable} ${googleSans.variable} ${oswald.variable} ${rubikSprayPaint.variable}`}>
       <body>{children}</body>
     </html>
   );
