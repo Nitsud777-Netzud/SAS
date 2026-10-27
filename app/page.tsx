@@ -82,7 +82,7 @@ export default function Home() {
         </div>
         <div className="container">
           <p className="hero-copy mb-6 text-xs font-black tracking-[.2em] text-[var(--muted)]">YOUTH-LED • INLAND EMPIRE • CALIFORNIA</p>
-          <h1 className="display hero-word max-w-5xl text-[clamp(4rem,11vw,9.5rem)] leading-[.82] uppercase">Students<br/><span className="bg-[var(--accent)] px-2 text-white">Against</span><br/>Surveillance.</h1>
+          <h1 className="display hero-word max-w-5xl text-[clamp(2.75rem,7vw,5.5rem)] leading-[.82] uppercase">Students<br/><span className="bg-[var(--accent)] px-2 text-white">Against</span><br/>Surveillance.</h1>
           <div className="hero-copy mt-12 grid gap-8 md:grid-cols-[1fr_360px] md:items-end">
             <p className="max-w-2xl text-xl font-medium leading-relaxed md:text-2xl">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
