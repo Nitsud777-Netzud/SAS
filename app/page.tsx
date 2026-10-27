@@ -44,6 +44,23 @@ export default function Home() {
   const [watcherOpen, setWatcherOpen] = useState(false);
   const watcherTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const updateScrollbar = () => {
+      const redSection = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2)?.closest(".about-section, .final-cta");
+      root.classList.toggle("red-scrollbar", Boolean(redSection));
+    };
+
+    updateScrollbar();
+    window.addEventListener("scroll", updateScrollbar, { passive: true });
+    window.addEventListener("resize", updateScrollbar);
+    return () => {
+      window.removeEventListener("scroll", updateScrollbar);
+      window.removeEventListener("resize", updateScrollbar);
+      root.classList.remove("red-scrollbar");
+    };
+  }, []);
+
   useEffect(() => () => { if (watcherTimer.current) clearTimeout(watcherTimer.current); }, []);
 
   const revealWatcher = () => {
