@@ -84,7 +84,7 @@ export default function Home() {
           {nav.map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(" ", "-")}`} className="transition hover:text-[var(--accent)]">{item}</a>)}
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#updates" className="bg-[var(--accent)] px-4 py-2 text-xs font-black tracking-widest text-white transition hover:bg-white hover:text-black">FOLLOW ↗</a>
+          <a href="#updates" className="bg-[var(--accent)] px-4 py-2 text-xs font-black tracking-widest text-white shadow-[3px_3px_0_#000] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">FOLLOW ↗</a>
           <button aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)} className="border border-[var(--line)] px-3 py-2 text-xs font-black md:hidden">{menuOpen ? "CLOSE" : "MENU"}</button>
         </div>
       </header>
@@ -103,8 +103,9 @@ export default function Home() {
           <div className="hero-copy mt-12 grid gap-8 md:grid-cols-[1fr_360px] md:items-end">
             <p className="max-w-2xl text-xl font-medium leading-relaxed md:text-2xl">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
             <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-              <a href="#the-issue" className="border-2 border-[var(--line)] px-5 py-4 text-center text-sm font-black tracking-widest transition hover:border-white hover:bg-white hover:text-black">LEARN ABOUT THE ISSUE ↘</a>
-              <a href="#about" className="bg-[var(--accent)] px-5 py-4 text-center text-sm font-black tracking-widest text-white transition hover:bg-white hover:text-black">ABOUT S.A.S. ↗</a>
+              <a href="#get-involved" className="bg-[var(--accent)] px-5 py-4 text-center text-sm font-black tracking-widest text-white shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">GET INVOLVED ↗</a>
+              <a href="#the-issue" className="border-2 border-[var(--line)] px-5 py-4 text-center text-sm font-black tracking-widest shadow-[4px_4px_0_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-black">LEARN ABOUT THE ISSUE ↘</a>
+              <a href="#about" className="bg-white px-5 py-4 text-center text-sm font-black tracking-widest text-black shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 hover:bg-[var(--accent)] hover:text-white">ABOUT S.A.S. ↗</a>
             </div>
           </div>
         </div>
@@ -150,7 +151,7 @@ export default function Home() {
         <div className="grid gap-px border-b border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">FIELD NOTE / 001</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Research, campaigns, and events will be published here as S.A.S. grows.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">COMING SOON</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Follow S.A.S. for new research and organizing updates.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">SIGNAL</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">The next chapter is being built by students.</p></div></div>
       </section>
 
-      <section className="final-cta border-t-2 border-black py-16 text-white md:py-24"><div className="container relative overflow-hidden"><p className="text-xs font-black tracking-[.2em] text-white/75">04 / TAKE BACK YOUR PRIVACY</p><h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2><a href="#updates" className="mt-10 inline-block bg-black px-7 py-5 text-sm font-black tracking-widest text-white transition hover:bg-white hover:text-black">STAY INFORMED ↗</a></div></section>
+      <section id="get-involved" className="final-cta border-t-2 border-black py-16 text-white md:py-24"><div className="container relative overflow-hidden"><p className="text-xs font-black tracking-[.2em] text-white/75">04 / TAKE BACK YOUR PRIVACY</p><h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2><a href="#updates" className="mt-10 inline-block bg-black px-8 py-5 text-sm font-black tracking-widest text-white shadow-[4px_4px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">GET INVOLVED ↗</a></div></section>
 
       <footer className="border-t-2 border-[var(--line)] bg-[#050505] py-10 text-white"><div className="container flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><div className="display text-3xl">S.A.S.</div><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div><p className="text-[10px] font-black tracking-widest text-[var(--muted)]">INLAND EMPIRE • CALIFORNIA</p></div></footer>
     </main>
