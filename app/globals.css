@@ -277,7 +277,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-text); o
 .article-source strong { font-size: 13px; line-height: 1.55; }
 .article-source p { margin: 6px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
 .article-source:hover strong, .article-source:hover > span:last-child { color: var(--accent-text); }
-.article-questions { background: linear-gradient(90deg, transparent, rgba(225,29,46,.045)); }
+.article-questions { background: var(--panel); padding-inline: clamp(20px, 3vw, 32px); }
 .article-end { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; padding-top: 40px; }
 .article-end > p { flex-basis: 100%; margin: 0; color: var(--accent-text); font-size: 10px; font-weight: 900; letter-spacing: .16em; }
 .article-end .article-back { margin: 0; }
