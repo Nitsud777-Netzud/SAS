@@ -79,6 +79,7 @@ export default function Home() {
   }, []);
 
   const closeWatcher = () => {
+    if (dialogRef.current?.open) dialogRef.current.close();
     setWatcherOpen(false);
     watcherTriggerRef.current?.focus();
   };
@@ -240,7 +241,10 @@ export default function Home() {
         className="watcher-dialog"
         aria-labelledby="watcher-title"
         onCancel={() => setWatcherOpen(false)}
-        onClose={() => setWatcherOpen(false)}
+        onClose={() => {
+          setWatcherOpen(false);
+          watcherTriggerRef.current?.focus();
+        }}
       >
         <div className="dialog-heading"><p id="watcher-title">SURVEILLANCE FEED / SUBJECT 01</p><button type="button" onClick={closeWatcher} aria-label="Close illustration">CLOSE ×</button></div>
         <Watcher />
