@@ -1,0 +1,37 @@
+name: Verify site
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "audit/**"
+
+concurrency:
+  group: sas-verify-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Check TypeScript
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Audit production dependencies
+        run: npm audit --omit=dev
+      - name: Build production site
+        run: npm run build

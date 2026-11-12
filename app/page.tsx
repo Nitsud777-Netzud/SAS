@@ -1,13 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-const nav = ["ABOUT", "THE ISSUE", "UPDATES"];
+const navigation = [
+  { label: "ABOUT", href: "#about" },
+  { label: "THE ISSUE", href: "#the-issue" },
+  { label: "RESEARCH", href: "#research" },
+  { label: "UPDATES", href: "#updates" },
+];
 
-const issues = [
-  ["01", "ALPRS", "Learn what ALPRS are, how they are used, and why they matter."],
-  ["02", "THE TECHNOLOGY", "Understand the broader surveillance systems connected to our communities."],
-  ["03", "THE RESEARCH", "Read the sources and documentation behind our work."],
+const issueCards = [
+  { number: "01", title: "ALPRS", description: "What license-plate recognition systems collect, and how the technology works.", href: "#alprs" },
+  { number: "02", title: "THE SYSTEM", description: "How cameras, databases, policies, and data sharing fit together.", href: "#technology" },
+  { number: "03", title: "THE EVIDENCE", description: "What to look for when evaluating claims, policies, and research.", href: "#research" },
 ];
 
 const eyes = [
@@ -31,26 +36,38 @@ function Eye() {
 function Watcher() {
   return (
     <div className="watcher-popup">
-      <div className="watcher-scan" />
+      <div className="watcher-scan" aria-hidden="true" />
       <p className="watcher-meta">SURVEILLANCE FEED / SUBJECT 01</p>
-      <div className="watcher-face"><div className="watcher-eyes" /></div>
-      <div className="watcher-sign">I AM!</div>
+      <div className="watcher-face" aria-hidden="true"><div className="watcher-eyes" /></div>
+      <div className="watcher-sign" aria-hidden="true">I AM!</div>
     </div>
   );
+}
+
+function SectionLabel({ number, children }: { number: string; children: ReactNode }) {
+  return <p className="section-label"><span>{number}</span> / {children}</p>;
 }
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [watcherOpen, setWatcherOpen] = useState(false);
-  const watcherTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const watcherTriggerRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (watcherOpen && !dialog.open) dialog.showModal();
+    if (!watcherOpen && dialog.open) dialog.close();
+  }, [watcherOpen]);
 
   useEffect(() => {
     const root = document.documentElement;
     const updateScrollbar = () => {
-      const redSection = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2)?.closest(".about-section, .final-cta");
-      root.classList.toggle("red-scrollbar", Boolean(redSection));
+      const section = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2)
+        ?.closest(".about-section, .final-cta");
+      root.classList.toggle("red-scrollbar", Boolean(section));
     };
-
     updateScrollbar();
     window.addEventListener("scroll", updateScrollbar, { passive: true });
     window.addEventListener("resize", updateScrollbar);
@@ -61,99 +78,178 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => () => { if (watcherTimer.current) clearTimeout(watcherTimer.current); }, []);
-
-  const revealWatcher = () => {
-    setWatcherOpen(true);
-    if (watcherTimer.current) clearTimeout(watcherTimer.current);
-    watcherTimer.current = setTimeout(() => setWatcherOpen(false), 3200);
-  };
-
-  const handleWatcherKeyDown = (event: React.KeyboardEvent<HTMLHeadingElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      revealWatcher();
-    }
+  const closeWatcher = () => {
+    if (dialogRef.current?.open) dialogRef.current.close();
+    setWatcherOpen(false);
+    watcherTriggerRef.current?.focus();
   };
 
   return (
     <main>
-      <header className="container flex items-center justify-between border-b-2 border-[var(--line)] py-5">
-        <a href="#top" className="display text-2xl">S.A.S.</a>
-        <nav className="hidden gap-7 text-xs font-black tracking-widest md:flex">
-          {nav.map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(" ", "-")}`} className="transition hover:text-[var(--accent)]">{item}</a>)}
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <header className="site-header container">
+        <a href="#top" className="wordmark" aria-label="Students Against Surveillance home">S.A.S.</a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
-        <div className="flex items-center gap-2">
-          <a href="#updates" className="bg-[var(--accent)] px-4 py-2 text-xs font-black tracking-widest text-white shadow-[3px_3px_0_#000] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">FOLLOW ↗</a>
-          <button aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)} className="border border-[var(--line)] px-3 py-2 text-xs font-black md:hidden">{menuOpen ? "CLOSE" : "MENU"}</button>
-        </div>
+        <a className="header-cta" href="#get-involved">TAKE PART <span aria-hidden="true">↗</span></a>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen((open) => !open)}
+        >{menuOpen ? "CLOSE" : "MENU"}</button>
       </header>
 
-      {menuOpen && <div className="border-b-2 border-[var(--line)] bg-[#0d0d0c] p-7 md:hidden"><nav className="flex flex-col gap-5">{nav.map((item) => <a onClick={() => setMenuOpen(false)} key={item} href={`#${item.toLowerCase().replaceAll(" ", "-")}`} className="display text-4xl hover:text-[var(--accent)]">{item}</a>)}</nav></div>}
+      <nav id="mobile-navigation" className={`mobile-nav ${menuOpen ? "is-open" : ""}`} aria-label="Mobile navigation" hidden={!menuOpen}>
+        {navigation.map((item) => (
+          <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></a>
+        ))}
+      </nav>
 
-      <div className="marquee"><div className="marquee-track"><span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span><span aria-hidden="true">STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span></div></div>
+      <div className="marquee" aria-label="Students Against Surveillance — Inland Empire, California and beyond">
+        <div className="marquee-track" aria-hidden="true">
+          <span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span>
+          <span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span>
+        </div>
+      </div>
 
-      <section id="top" className="grid-bg border-b-2 border-[var(--line)] py-20 md:py-28">
+      <section id="top" className="hero grid-bg" aria-labelledby="hero-title">
         <div className="eye-field" aria-hidden="true">
-          {eyes.map(([left, top, rotate], index) => <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as React.CSSProperties}><Eye /></span>)}
+          {eyes.map(([left, top, rotate], index) => (
+            <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as CSSProperties}><Eye /></span>
+          ))}
         </div>
-        <div className="container">
-          <p className="hero-copy mb-6 text-xs font-black tracking-[.2em] text-[var(--muted)]">YOUTH-LED • INLAND EMPIRE • CALIFORNIA</p>
-          <h1 className="display hero-word max-w-5xl text-[clamp(2.75rem,7vw,5.5rem)] leading-[.82] uppercase">Students<br/><span className="bg-[var(--accent)] px-2 text-white">Against</span><br/>Surveillance.</h1>
-          <div className="hero-copy mt-12 grid gap-8 md:grid-cols-[1fr_360px] md:items-end">
-            <p className="max-w-2xl text-xl font-medium leading-relaxed md:text-2xl">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
-            <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
-              <a href="#get-involved" className="bg-[var(--accent)] px-5 py-4 text-center text-sm font-black tracking-widest text-white shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">GET INVOLVED ↗</a>
-              <a href="#the-issue" className="border-2 border-[var(--line)] px-5 py-4 text-center text-sm font-black tracking-widest shadow-[4px_4px_0_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-black">LEARN ABOUT THE ISSUE ↘</a>
-              <a href="#about" className="bg-white px-5 py-4 text-center text-sm font-black tracking-widest text-black shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 hover:bg-[var(--accent)] hover:text-white">ABOUT S.A.S. ↗</a>
+        <div className="container hero-inner" id="main-content" tabIndex={-1}>
+          <p className="eyebrow">YOUTH-LED <span>•</span> INLAND EMPIRE <span>•</span> CALIFORNIA</p>
+          <h1 id="hero-title" className="hero-word">Students<br /><span>Against</span><br />Surveillance.</h1>
+          <div className="hero-bottom">
+            <p className="hero-intro">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#get-involved">TAKE PART <span aria-hidden="true">↗</span></a>
+              <a className="button button-secondary" href="#the-issue">UNDERSTAND THE ISSUE <span aria-hidden="true">↘</span></a>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="about" className="about-section py-20 md:py-28">
-        <div className="container relative">
-          <div className="grid gap-10 md:grid-cols-[220px_1fr] md:gap-14">
+      <section id="about" className="about-section">
+        <div className="container about-grid">
+          <div>
+            <SectionLabel number="01">ABOUT S.A.S.</SectionLabel>
+            <ol className="principles" aria-label="Our approach">
+              <li><span>01</span> RESEARCH</li>
+              <li><span>02</span> EDUCATE</li>
+              <li><span>03</span> ORGANIZE</li>
+            </ol>
+          </div>
+          <div className="about-copy">
+            <h2>Privacy affects every student.</h2>
+            <p>S.A.S. is based in Redlands and the Inland Empire. We are building a youth movement to research, explain, and organize around surveillance in our schools and communities.</p>
+            <p>Our work starts with clear information, public accountability, and the belief that the people affected by surveillance deserve a meaningful voice in decisions about it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="the-issue" className="issue-section" aria-labelledby="issue-title">
+        <div className="container">
+          <div className="section-heading">
             <div>
-              <p className="section-kicker text-xs font-black tracking-[.2em]">01 / ABOUT S.A.S.</p>
-              <div className="mt-7 flex flex-col border-y border-black/35 bg-black/20">
-                {[['01','RESEARCH'],['02','EDUCATE'],['03','ORGANIZE']].map(([n,t]) => <div key={n} className="flex items-center gap-4 border-b border-black/35 px-4 py-4 last:border-b-0"><span className="text-xl font-black text-black/75">{n}</span><span className="text-[10px] font-black tracking-[.16em]">{t}</span></div>)}
-              </div>
+              <SectionLabel number="02">THE ISSUE</SectionLabel>
+              <h2 id="issue-title">Know who is<br />watching you.</h2>
             </div>
-            <div className="md:pt-10">
-              <h2 className="display max-w-4xl text-5xl uppercase leading-[.95] md:text-7xl">Privacy affects every student.</h2>
-              <p className="mt-8 max-w-3xl text-lg leading-8 text-white/80">S.A.S. is currently based in Redlands and the Inland Empire. We are building a youth movement that can research, educate, organize, and advocate around surveillance in our schools and communities.</p>
-            </div>
+            <p>Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems—and the rules governing them—is a starting point for meaningful public debate.</p>
+          </div>
+          <div className="issue-cards">
+            {issueCards.map((issue) => (
+              <a href={issue.href} key={issue.number} className="issue-card">
+                <span className="card-number">{issue.number}</span>
+                <h3>{issue.title}</h3>
+                <p>{issue.description}</p>
+                <span className="card-link">EXPLORE <span aria-hidden="true">↗</span></span>
+              </a>
+            ))}
+          </div>
+          <div className="issue-details">
+            <article id="alprs" className="detail-panel">
+              <SectionLabel number="01">THE BASICS</SectionLabel>
+              <h3>What are ALPRS?</h3>
+              <p>Automatic License Plate Recognition Systems (ALPRS) use cameras and software to read vehicle license plates. Depending on the system, a record may include a plate number, the time and place it was observed, and an associated image.</p>
+              <p>These systems are not all configured or governed in the same way. Retention periods, access permissions, sharing practices, and oversight depend on the operator, applicable law, and local policy.</p>
+            </article>
+            <article id="technology" className="detail-panel">
+              <SectionLabel number="02">THE SYSTEM</SectionLabel>
+              <h3>Technology is only part of the story.</h3>
+              <p>A useful assessment looks beyond the camera. Ask who operates the system, where information is stored, who can search it, whether it is shared with other agencies or companies, how long records are kept, and what audit process exists.</p>
+              <p>Written policies and actual practices both matter. A policy should be specific enough for the public to understand what is collected, why it is collected, and what limits apply.</p>
+            </article>
+            <article id="research" className="detail-panel research-panel">
+              <SectionLabel number="03">THE EVIDENCE</SectionLabel>
+              <h3>Read the policy. Check the claim.</h3>
+              <p>Good research separates documented facts from assumptions. Look for original policies, contracts, public meeting records, system documentation, independent evaluations, and applicable law. Check publication dates and read the underlying source—not only a headline or summary.</p>
+              <p className="research-status">S.A.S. SOURCE LIBRARY IS IN DEVELOPMENT. NO RESEARCH DOCUMENTS HAVE BEEN PUBLISHED HERE YET.</p>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="the-issue" className="border-b-2 border-[var(--line)] bg-[var(--panel)] py-20 md:py-28">
+      <section id="updates" className="updates-section">
         <div className="container">
-          <div className="mb-14 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <div className="max-w-4xl">
-              <p className="mb-5 text-xs font-black tracking-[.2em] text-[var(--accent)] before:mr-2 before:inline-block before:h-[2px] before:w-7 before:bg-current">02 / THE ISSUE</p>
-              <h2 className="display max-w-4xl cursor-default text-6xl uppercase leading-[.9] md:text-8xl" role="button" tabIndex={0} aria-label="Know who is watching you" onClick={revealWatcher} onKeyDown={handleWatcherKeyDown}>Know who is<br/>watching you.</h2>
-            </div>
-            <p className="max-w-sm text-sm leading-6 text-neutral-400">Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems is the first step toward meaningful public debate.</p>
+          <div className="updates-heading">
+            <div><SectionLabel number="03">UPDATES</SectionLabel><h2>What&apos;s happening.</h2></div>
+            <span className="status-label">PUBLIC LOG</span>
           </div>
-
-          {watcherOpen && <div className="watcher-overlay" role="dialog" aria-label="Surveillance feed"><div><Watcher /></div></div>}
-
-          <div className="grid border-t border-neutral-700 md:grid-cols-3">
-            {issues.map(([n,t,d]) => <a href="#the-issue" key={n} className="issue-card border-b border-neutral-700 p-7 transition hover:bg-white hover:text-black md:border-r md:last:border-r-0"><span className="text-xs font-black text-[var(--accent)]">{n}</span><h3 className="display mt-10 text-3xl uppercase">{t}</h3><p className="mt-4 text-sm leading-6 text-neutral-400">{d}</p><span className="issue-arrow mt-8 block font-black">READ MORE ↗</span></a>)}
+          <div className="empty-updates">
+            <span className="empty-index">001 / STATUS</span>
+            <h3>No public updates yet.</h3>
+            <p>We are preparing the research and organizing work that will be shared here. This page will list dated updates when they are ready to publish.</p>
           </div>
         </div>
       </section>
 
-      <section id="updates" className="container py-20 md:py-28">
-        <div className="flex items-end justify-between border-b-2 border-[var(--line)] pb-5"><div><p className="mb-4 text-xs font-black tracking-[.2em] text-[var(--muted)]">03 / UPDATES</p><h2 className="display text-5xl uppercase md:text-7xl">What's happening</h2></div><a href="#updates" className="hidden text-xs font-black tracking-widest text-[var(--accent)] underline sm:block">ALL UPDATES ↗</a></div>
-        <div className="grid gap-px border-b border-[var(--line)] bg-[var(--line)] sm:grid-cols-3"><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">FIELD NOTE / 001</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Research, campaigns, and events will be published here as S.A.S. grows.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">COMING SOON</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">Follow S.A.S. for new research and organizing updates.</p></div><div className="bg-[var(--paper)] p-7"><p className="text-[10px] font-black tracking-widest text-[var(--accent)]">SIGNAL</p><p className="mt-12 text-sm leading-6 text-[var(--muted)]">The next chapter is being built by students.</p></div></div>
+      <section id="get-involved" className="final-cta">
+        <div className="container cta-inner">
+          <SectionLabel number="04">PARTICIPATE</SectionLabel>
+          <h2>Don&apos;t just<br />know.<br /><span>Ask better questions.</span></h2>
+          <div className="cta-copy">
+            <p>Start by learning how a system works, checking the policy behind it, and bringing specific questions to the public conversation.</p>
+            <p className="contact-note">An official contact or sign-up channel has not been published on this site yet. We will add participation details here once they are confirmed.</p>
+            <a className="button button-dark" href="#research">START WITH THE EVIDENCE <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
       </section>
 
-      <section id="get-involved" className="final-cta border-t-2 border-black py-16 text-white md:py-24"><div className="container relative overflow-hidden"><p className="text-xs font-black tracking-[.2em] text-white/75">04 / TAKE BACK YOUR PRIVACY</p><h2 className="display mt-5 max-w-5xl text-6xl uppercase leading-[.85] md:text-9xl">Don't just<br/>know.<br/><span className="text-black">Do something.</span></h2><a href="#updates" className="mt-10 inline-block bg-black px-8 py-5 text-sm font-black tracking-widest text-white shadow-[4px_4px_0_rgba(255,255,255,0.9)] transition hover:-translate-y-0.5 hover:bg-white hover:text-black">GET INVOLVED ↗</a></div></section>
+      <footer className="site-footer">
+        <div className="container footer-inner">
+          <div><a href="#top" className="wordmark footer-wordmark">S.A.S.</a><p>Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div>
+          <a href="#top" className="back-to-top">BACK TO TOP ↑</a>
+          <p className="footer-location">INLAND EMPIRE <span>•</span> CALIFORNIA</p>
+        </div>
+      </footer>
 
-      <footer className="border-t-2 border-[var(--line)] bg-[#050505] py-10 text-white"><div className="container flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><div className="display text-3xl">S.A.S.</div><p className="mt-2 max-w-sm text-xs leading-5 text-[var(--muted)]">Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div><p className="text-[10px] font-black tracking-widest text-[var(--muted)]">INLAND EMPIRE • CALIFORNIA</p></div></footer>
+      <button
+        ref={watcherTriggerRef}
+        type="button"
+        className="watcher-trigger"
+        onClick={() => setWatcherOpen(true)}
+        aria-label="Open the surveillance illustration"
+      >?</button>
+      <dialog
+        ref={dialogRef}
+        className="watcher-dialog"
+        aria-labelledby="watcher-title"
+        onCancel={() => setWatcherOpen(false)}
+        onClose={() => {
+          setWatcherOpen(false);
+          watcherTriggerRef.current?.focus();
+        }}
+      >
+        <div className="dialog-heading"><p id="watcher-title">SURVEILLANCE FEED / SUBJECT 01</p><button type="button" onClick={closeWatcher} aria-label="Close illustration">CLOSE ×</button></div>
+        <Watcher />
+        <p className="dialog-caption">A visual reminder: ask what is collected, who can access it, and what rules apply.</p>
+      </dialog>
     </main>
   );
 }
