@@ -10,9 +10,7 @@ const navigation = [
 ];
 
 const issueCards = [
-  { number: "01", title: "ALPRS", description: "What license-plate recognition systems collect, and how the technology works.", href: "#alprs" },
-  { number: "02", title: "THE SYSTEM", description: "How cameras, databases, policies, and data sharing fit together.", href: "#technology" },
-  { number: "03", title: "THE EVIDENCE", description: "What to look for when evaluating claims, policies, and research.", href: "#research" },
+  { number: "01", title: "KNOW WHO IS WATCHING YOU", description: "A clear, sourced explainer on Axon, Flock Safety, automated license-plate readers, and the case for public oversight.", href: "/know-who-is-watching-you" },
 ];
 
 const eyes = [
@@ -162,35 +160,15 @@ export default function Home() {
             </div>
             <p>Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems—and the rules governing them—is a starting point for meaningful public debate.</p>
           </div>
-          <div className="issue-cards">
+          <div className="issue-cards single-issue-card">
             {issueCards.map((issue) => (
               <a href={issue.href} key={issue.number} className="issue-card">
                 <span className="card-number">{issue.number}</span>
                 <h3>{issue.title}</h3>
                 <p>{issue.description}</p>
-                <span className="card-link">EXPLORE <span aria-hidden="true">↗</span></span>
+                <span className="card-link">READ THE ARTICLE <span aria-hidden="true">↗</span></span>
               </a>
             ))}
-          </div>
-          <div className="issue-details">
-            <article id="alprs" className="detail-panel">
-              <SectionLabel number="01">THE BASICS</SectionLabel>
-              <h3>What are ALPRS?</h3>
-              <p>Automatic License Plate Recognition Systems (ALPRS) use cameras and software to read vehicle license plates. Depending on the system, a record may include a plate number, the time and place it was observed, and an associated image.</p>
-              <p>These systems are not all configured or governed in the same way. Retention periods, access permissions, sharing practices, and oversight depend on the operator, applicable law, and local policy.</p>
-            </article>
-            <article id="technology" className="detail-panel">
-              <SectionLabel number="02">THE SYSTEM</SectionLabel>
-              <h3>Technology is only part of the story.</h3>
-              <p>A useful assessment looks beyond the camera. Ask who operates the system, where information is stored, who can search it, whether it is shared with other agencies or companies, how long records are kept, and what audit process exists.</p>
-              <p>Written policies and actual practices both matter. A policy should be specific enough for the public to understand what is collected, why it is collected, and what limits apply.</p>
-            </article>
-            <article id="research" className="detail-panel research-panel">
-              <SectionLabel number="03">THE EVIDENCE</SectionLabel>
-              <h3>Read the policy. Check the claim.</h3>
-              <p>Good research separates documented facts from assumptions. Look for original policies, contracts, public meeting records, system documentation, independent evaluations, and applicable law. Check publication dates and read the underlying source—not only a headline or summary.</p>
-              <p className="research-status">S.A.S. SOURCE LIBRARY IS IN DEVELOPMENT. NO RESEARCH DOCUMENTS HAVE BEEN PUBLISHED HERE YET.</p>
-            </article>
           </div>
         </div>
       </section>
@@ -198,13 +176,38 @@ export default function Home() {
       <section id="updates" className="updates-section">
         <div className="container">
           <div className="updates-heading">
-            <div><SectionLabel number="03">UPDATES</SectionLabel><h2>What&apos;s happening.</h2></div>
-            <span className="status-label">PUBLIC LOG</span>
+            <div><SectionLabel number="03">WHAT&apos;S HAPPENING</SectionLabel><h2>What&apos;s happening.</h2></div>
+            <span className="status-label">FOLLOW / READ</span>
           </div>
-          <div className="empty-updates">
-            <span className="empty-index">001 / STATUS</span>
-            <h3>No public updates yet.</h3>
-            <p>We are preparing the research and organizing work that will be shared here. This page will list dated updates when they are ready to publish.</p>
+          <div className="happening-grid">
+            <article className="happening-card" id="socials">
+              <span className="card-number">01 / SOCIAL</span>
+              <h3>Follow the conversation.</h3>
+              <p>Find S.A.S. across our social channels for announcements, short explainers, and updates from the movement.</p>
+              <div className="social-links" aria-label="S.A.S. social platforms">
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">INSTAGRAM <span aria-hidden="true">↗</span></a>
+                <a href="https://x.com/" target="_blank" rel="noreferrer">X / TWITTER <span aria-hidden="true">↗</span></a>
+                <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer">TIKTOK <span aria-hidden="true">↗</span></a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">YOUTUBE <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+            <a className="happening-card happening-card-link" href="#website-updates" id="website">
+              <span className="card-number">02 / WEBSITE</span>
+              <h3>Read the latest updates.</h3>
+              <p>Visit the website update log for dated announcements, project progress, and published materials.</p>
+              <span className="card-link">VIEW WEBSITE UPDATES <span aria-hidden="true">↘</span></span>
+            </a>
+          </div>
+          <div className="website-updates" id="website-updates">
+            <div className="website-updates-heading">
+              <div><SectionLabel number="03A">WEBSITE UPDATES</SectionLabel><h3>From the website.</h3></div>
+              <span className="status-label">PUBLIC LOG</span>
+            </div>
+            <div className="empty-updates">
+              <span className="empty-index">001 / STATUS</span>
+              <h3>No public updates yet.</h3>
+              <p>Website updates will appear here as dated entries when new information and materials are ready to publish.</p>
+            </div>
           </div>
         </div>
       </section>
