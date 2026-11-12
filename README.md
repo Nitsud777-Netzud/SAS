@@ -22,6 +22,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Quality checks
 
+The repository commits `package-lock.json`; use `npm ci` for reproducible installs.
+
 ```bash
 npx tsc --noEmit
 npm run build
