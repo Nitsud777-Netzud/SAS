@@ -122,6 +122,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-text); o
 .card-link { display: flex; gap: 8px; align-items: center; margin-top: auto; font-size: 10px; font-weight: 900; letter-spacing: .13em; }
 .card-link span { color: var(--accent); }
 .issue-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 64px; border: 1px solid var(--line); background: var(--line); }
+.research-panel { grid-column: 1 / -1; }
 .detail-panel { min-height: 300px; padding: clamp(24px, 4vw, 42px); background: var(--panel); scroll-margin-top: 24px; }
 .detail-panel h3 { margin: 24px 0 0; font-family: var(--font-display); font-size: clamp(28px, 3vw, 42px); font-weight: 600; line-height: 1; text-transform: uppercase; }
 .detail-panel p { max-width: 650px; margin: 18px 0 0; color: #d0d0c9; font-size: 14px; line-height: 1.8; }
