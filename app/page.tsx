@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 const navigation = [
   { label: "ABOUT", href: "#about" },
@@ -44,15 +44,15 @@ function Watcher() {
   );
 }
 
-function SectionLabel({ number, children }: { number: string; children: React.ReactNode }) {
+function SectionLabel({ number, children }: { number: string; children: ReactNode }) {
   return <p className="section-label"><span>{number}</span> / {children}</p>;
 }
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [watcherOpen, setWatcherOpen] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const watcherTriggerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
+  const watcherTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -118,10 +118,10 @@ export default function Home() {
       <section id="top" className="hero grid-bg" aria-labelledby="hero-title">
         <div className="eye-field" aria-hidden="true">
           {eyes.map(([left, top, rotate], index) => (
-            <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as React.CSSProperties}><Eye /></span>
+            <span key={index} className="eye" style={{ left, top, "--rotate": rotate, "--delay": `${index * 1.1}s` } as CSSProperties}><Eye /></span>
           ))}
         </div>
-        <div className="container hero-inner" id="main-content">
+        <div className="container hero-inner" id="main-content" tabIndex={-1}>
           <p className="eyebrow">YOUTH-LED <span>•</span> INLAND EMPIRE <span>•</span> CALIFORNIA</p>
           <h1 id="hero-title" className="hero-word">Students<br /><span>Against</span><br />Surveillance.</h1>
           <div className="hero-bottom">
@@ -197,7 +197,7 @@ export default function Home() {
       <section id="updates" className="updates-section">
         <div className="container">
           <div className="updates-heading">
-            <div><SectionLabel number="03">UPDATES</SectionLabel><h2>What's happening.</h2></div>
+            <div><SectionLabel number="03">UPDATES</SectionLabel><h2>What&apos;s happening.</h2></div>
             <span className="status-label">PUBLIC LOG</span>
           </div>
           <div className="empty-updates">
@@ -211,7 +211,7 @@ export default function Home() {
       <section id="get-involved" className="final-cta">
         <div className="container cta-inner">
           <SectionLabel number="04">PARTICIPATE</SectionLabel>
-          <h2>Don't just<br />know.<br /><span>Ask better questions.</span></h2>
+          <h2>Don&apos;t just<br />know.<br /><span>Ask better questions.</span></h2>
           <div className="cta-copy">
             <p>Start by learning how a system works, checking the policy behind it, and bringing specific questions to the public conversation.</p>
             <p className="contact-note">An official contact or sign-up channel has not been published on this site yet. We will add participation details here once they are confirmed.</p>
