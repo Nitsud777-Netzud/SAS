@@ -27,7 +27,7 @@ const sources = [
   {
     title: "Axon — Written testimony on ALPR technology (September 2026)",
     url: "https://apps.legislature.ky.gov/CommitteeDocuments/8/44416/5.%20Automatic%20License%20Plate%20Readers%20%28Axon%20Statement%29.pdf",
-    note: "A vendor's own description of its ALPR product and claimed safeguards; read alongside independent sources.",
+    note: "A vendor&apos;s own description of its ALPR product and claimed safeguards; read alongside independent sources.",
   },
   {
     title: "Federal Register — Flock Safety ALPR system privacy notice (2024)",
@@ -72,7 +72,7 @@ export default function KnowWhoIsWatchingYou() {
           <p className="section-label">01 / THE COMPANIES</p>
           <h2>Axon and Flock Safety.</h2>
           <p><strong>Axon Enterprise</strong> is a public-safety technology company known for products such as body-worn cameras, conducted-energy devices, digital evidence services, and software for police agencies. Its product portfolio also includes automated license-plate recognition (ALPR) technology and vehicle-attribute analysis.</p>
-          <p><strong>Flock Safety</strong> is a public-safety technology company whose best-known products include fixed ALPR cameras and a cloud-based platform used by law-enforcement agencies and other customers. Its systems can record vehicle observations and make them searchable by authorized users, depending on the customer's configuration and agreements.</p>
+          <p><strong>Flock Safety</strong> is a public-safety technology company whose best-known products include fixed ALPR cameras and a cloud-based platform used by law-enforcement agencies and other customers. Its systems can record vehicle observations and make them searchable by authorized users, depending on the customer&apos;s configuration and agreements.</p>
           <p>Both companies sell technology to public-safety organizations, but their product designs, contracts, data-sharing settings, retention rules, and customer policies can differ. A responsible review must examine the actual local contract and configuration—not assume every deployment works the same way.</p>
         </section>
 
@@ -98,17 +98,17 @@ export default function KnowWhoIsWatchingYou() {
             <li><strong>Movement becomes searchable.</strong> Repeated location records can reveal routines and sensitive visits—such as trips to medical facilities, places of worship, schools, or political gatherings.</li>
             <li><strong>Access can expand beyond the original purpose.</strong> Inter-agency sharing and broad search permissions can make a local camera network part of a much larger system. The public should know who can search it and under what rules.</li>
             <li><strong>Errors can have consequences.</strong> Automated reads and vehicle classifications are not infallible. A mistaken plate read or an unreliable watchlist entry can create an investigative lead that deserves careful human verification.</li>
-            <li><strong>Oversight may lag behind capability.</strong> A vendor's privacy promises are not a substitute for enforceable local rules, public reporting, independent audits, and meaningful consequences for misuse.</li>
+            <li><strong>Oversight may lag behind capability.</strong> A vendor&apos;s privacy promises are not a substitute for enforceable local rules, public reporting, independent audits, and meaningful consequences for misuse.</li>
             <li><strong>People may change their behavior.</strong> The prospect of being tracked can discourage people from attending events, seeking services, associating with others, or taking part in public life.</li>
           </ul>
-          <p>These concerns do not require assuming every officer or every deployment is abusive. They are reasons to demand narrow purposes, strict access controls, short retention, transparent agreements, independent audits, and a clear way to investigate and remedy misuse. S.A.S.'s position is that communities should reject mass, networked tracking where those safeguards cannot be guaranteed.</p>
+          <p>These concerns do not require assuming every officer or every deployment is abusive. They are reasons to demand narrow purposes, strict access controls, short retention, transparent agreements, independent audits, and a clear way to investigate and remedy misuse. S.A.S.&apos;s position is that communities should reject mass, networked tracking where those safeguards cannot be guaranteed.</p>
         </section>
 
         <section>
           <p className="section-label">04 / RESEARCH AND ACCOUNTABILITY</p>
           <h2>What does the evidence say?</h2>
           <p>There is no single national configuration. The most reliable way to understand a local system is to compare vendor documentation with public contracts, agency policies, retention schedules, access logs, audit reports, and independent research.</p>
-          <p>The Congressional Research Service explains the basic technology and legal questions. The EFF and ACLU document civil-liberties concerns, including the implications of turning plate observations into searchable histories and sharing data across jurisdictions. Vendor statements are also useful—but should be read as descriptions of the company's own product and claims, not as independent evaluations.</p>
+          <p>The Congressional Research Service explains the basic technology and legal questions. The EFF and ACLU document civil-liberties concerns, including the implications of turning plate observations into searchable histories and sharing data across jurisdictions. Vendor statements are also useful—but should be read as descriptions of the company&apos;s own product and claims, not as independent evaluations.</p>
           <p>Research and reporting should distinguish documented system capabilities from claims about how a particular agency actually uses them. Where a concern is based on a lawsuit, audit, or reported incident, identify the source and its status rather than presenting an allegation as a proven finding.</p>
           <div className="article-source-list">
             <h3>Sources to read</h3>
