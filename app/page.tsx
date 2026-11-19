@@ -31,6 +31,25 @@ function Eye() {
   );
 }
 
+function SocialIcon({ platform }: { platform: "instagram" | "x" | "tiktok" | "youtube" }) {
+  const common = { fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  return (
+    <svg className={`social-icon social-icon-${platform}`} viewBox="0 0 24 24" aria-hidden="true">
+      {platform === "instagram" && <>
+        <rect x="3" y="3" width="18" height="18" rx="5" {...common} />
+        <circle cx="12" cy="12" r="4" {...common} />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      </>}
+      {platform === "x" && <path d="M5 4h4.1l9.9 16h-4.1L5 4Zm0 16 6.1-7.2M12.2 10.5 19 4" {...common} />}
+      {platform === "tiktok" && <path d="M14 3v11.2a4.2 4.2 0 1 1-3.2-4.1M14 3c.5 2.8 2.2 4.5 5 4.8" {...common} />}
+      {platform === "youtube" && <>
+        <rect x="2.5" y="5" width="19" height="14" rx="4" {...common} />
+        <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+      </>}
+    </svg>
+  );
+}
+
 function Watcher() {
   return (
     <div className="watcher-popup">
@@ -107,7 +126,7 @@ export default function Home() {
         ))}
       </nav>
 
-      <div className="marquee" aria-label="Students Against Surveillance — Inland Empire, California and beyond">
+      <div className="marquee" aria-label="Students Against Surveillance. Inland Empire, California and beyond">
         <div className="marquee-track" aria-hidden="true">
           <span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span>
           <span>STUDENTS AGAINST SURVEILLANCE • INLAND EMPIRE → CALIFORNIA → BEYOND • </span>
@@ -124,7 +143,7 @@ export default function Home() {
           <p className="eyebrow">YOUTH-LED <span>•</span> INLAND EMPIRE <span>•</span> CALIFORNIA</p>
           <h1 id="hero-title" className="hero-word">Students<br /><span>Against</span><br />Surveillance.</h1>
           <div className="hero-bottom">
-            <p className="hero-intro">We are a youth-led organization working to challenge ALPRS and related surveillance technologies—and build a future where students and communities have a real say in how they are watched.</p>
+            <p className="hero-intro">We are a youth-led organization working to challenge ALPRs and related surveillance technologies, and build a future where students and communities have a real say in how they are watched.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#get-involved">TAKE PART <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="#the-issue">UNDERSTAND THE ISSUE <span aria-hidden="true">↘</span></a>
@@ -158,7 +177,7 @@ export default function Home() {
               <SectionLabel number="02">THE ISSUE</SectionLabel>
               <h2 id="issue-title">Know who is<br />watching you.</h2>
             </div>
-            <p>Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems—and the rules governing them—is a starting point for meaningful public debate.</p>
+            <p>Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems, and the rules governing them, is a starting point for meaningful public debate.</p>
           </div>
           <div className="issue-cards single-issue-card">
             {issueCards.map((issue) => (
@@ -180,34 +199,26 @@ export default function Home() {
             <span className="status-label">FOLLOW / READ</span>
           </div>
           <div className="happening-grid">
-            <article className="happening-card" id="socials">
-              <span className="card-number">01 / SOCIAL</span>
+            <article className="happening-card social-card" id="socials">
+              <span className="card-number">01 / SOCIAL CHANNELS</span>
               <h3>Follow the conversation.</h3>
-              <p>Find S.A.S. across our social channels for announcements, short explainers, and updates from the movement.</p>
+              <p>Join the conversation across our social channels. Find announcements, explainers, and new work from S.A.S.</p>
               <div className="social-links" aria-label="S.A.S. social platforms">
-                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">INSTAGRAM <span aria-hidden="true">↗</span></a>
-                <a href="https://x.com/" target="_blank" rel="noreferrer">X / TWITTER <span aria-hidden="true">↗</span></a>
-                <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer">TIKTOK <span aria-hidden="true">↗</span></a>
-                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">YOUTUBE <span aria-hidden="true">↗</span></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noreferrer"><span className="social-link-label"><SocialIcon platform="instagram" />INSTAGRAM</span><span className="social-arrow" aria-hidden="true">↗</span></a>
+                <a href="https://x.com/" target="_blank" rel="noreferrer"><span className="social-link-label"><SocialIcon platform="x" />X</span><span className="social-arrow" aria-hidden="true">↗</span></a>
+                <a href="https://www.tiktok.com/" target="_blank" rel="noreferrer"><span className="social-link-label"><SocialIcon platform="tiktok" />TIKTOK</span><span className="social-arrow" aria-hidden="true">↗</span></a>
+                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"><span className="social-link-label"><SocialIcon platform="youtube" />YOUTUBE</span><span className="social-arrow" aria-hidden="true">↗</span></a>
               </div>
             </article>
-            <a className="happening-card happening-card-link" href="#website-updates" id="website">
-              <span className="card-number">02 / WEBSITE</span>
-              <h3>Read the latest updates.</h3>
-              <p>Visit the website update log for dated announcements, project progress, and published materials.</p>
-              <span className="card-link">VIEW WEBSITE UPDATES <span aria-hidden="true">↘</span></span>
-            </a>
-          </div>
-          <div className="website-updates" id="website-updates">
-            <div className="website-updates-heading">
-              <div><SectionLabel number="03A">WEBSITE UPDATES</SectionLabel><h3>From the website.</h3></div>
-              <span className="status-label">PUBLIC LOG</span>
-            </div>
-            <div className="empty-updates">
-              <span className="empty-index">001 / STATUS</span>
+            <article className="happening-card public-updates-card" id="website-updates">
+              <div className="updates-card-top">
+                <span className="card-number">02 / PUBLIC UPDATES</span>
+                <span className="status-label">PUBLIC LOG</span>
+              </div>
               <h3>No public updates yet.</h3>
-              <p>Website updates will appear here as dated entries when new information and materials are ready to publish.</p>
-            </div>
+              <p>When new information, announcements, or project materials are ready, they will be published here with dates and context.</p>
+              <span className="updates-card-note"><span aria-hidden="true" className="updates-status-dot" />THE PUBLIC LOG IS IN PLACE</span>
+            </article>
           </div>
         </div>
       </section>
@@ -215,18 +226,18 @@ export default function Home() {
       <section id="get-involved" className="final-cta">
         <div className="container cta-inner">
           <SectionLabel number="04">PARTICIPATE</SectionLabel>
-          <h2>Don&apos;t just<br />know.<br /><span>Ask better questions.</span></h2>
+          <h2>Make privacy<br />a public<br /><span>question.</span></h2>
           <div className="cta-copy">
-            <p>Start by learning how a system works, checking the policy behind it, and bringing specific questions to the public conversation.</p>
-            <p className="contact-note">An official contact or sign-up channel has not been published on this site yet. We will add participation details here once they are confirmed.</p>
-            <a className="button button-dark" href="#research">START WITH THE EVIDENCE <span aria-hidden="true">↗</span></a>
+            <p>Learn how the technology works. Check the rules your district follows. Then bring clear, specific questions to the people making decisions.</p>
+            <p className="contact-note">Start with the S.A.S. explainer, use its questions as a guide, and make student privacy part of the public conversation.</p>
+            <a className="button button-dark" href="/know-who-is-watching-you">READ THE GUIDE <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <div><a href="#top" className="wordmark footer-wordmark">S.A.S.</a><p>Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div>
+          <div><a href="#top" className="wordmark footer-wordmark">S.A.S.</a><p>Students Against Surveillance. Youth-led organizing for privacy, transparency, and student voice.</p></div>
           <a href="#top" className="back-to-top">BACK TO TOP ↑</a>
           <p className="footer-location">INLAND EMPIRE <span>•</span> CALIFORNIA</p>
         </div>
