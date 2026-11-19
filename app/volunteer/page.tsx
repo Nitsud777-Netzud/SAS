@@ -50,7 +50,6 @@ function FieldLabel({ htmlFor, children, optional = false }: { htmlFor: string; 
 export default function VolunteerPage() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>(initialAnswers);
-  const [submitted, setSubmitted] = useState(false);
   const [notice, setNotice] = useState("");
   const progress = useMemo(() => ((step + 1) / steps.length) * 100, [step]);
 
@@ -94,23 +93,6 @@ export default function VolunteerPage() {
     // Do not claim that responses were delivered or persist them in the browser.
     setNotice("Your answers are ready, but S.A.S. has not configured a volunteer inbox yet. Nothing has been sent. Please check back soon.");
   };
-
-  if (submitted) {
-    return (
-      <main className="volunteer-page">
-        <header className="site-header container">
-          <Link href="/" className="wordmark" aria-label="Students Against Surveillance home">S.A.S.</Link>
-          <Link className="header-cta" href="/">BACK TO HOME <span aria-hidden="true">↗</span></Link>
-        </header>
-        <section className="volunteer-success container">
-          <p className="section-label">VOLUNTEER INTEREST</p>
-          <h1>Thank you<br /><span for="">for stepping up.</span></h1>
-          <p>Your interest has been recorded.</p>
-          <Link className="button button-primary" href="/">RETURN HOME <span aria-hidden="true">↗</span></Link>
-        </section>
-      </main>
-    );
-  }
 
   return (
     <main className="volunteer-page">
