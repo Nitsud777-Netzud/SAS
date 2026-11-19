@@ -50,7 +50,7 @@ export default function KnowWhoIsWatchingYou() {
           <Link href="/#the-issue">THE ISSUE</Link>
           <Link href="/#updates">WHAT&apos;S HAPPENING</Link>
         </nav>
-        <Link className="header-cta" href="/#updates">LATEST UPDATES <span aria-hidden="true">↗</span></Link>
+        <Link className="header-cta" href="/volunteer">VOLUNTEER <span aria-hidden="true">↗</span></Link>
       </header>
 
       <div className="article-hero grid-bg">
