@@ -29,7 +29,7 @@ const steps = [
   { label: "BASICS", title: "Let's start with the basics.", description: "What should we call you, and how can S.A.S. reach you?" },
   { label: "ABOUT YOU", title: "A little about you.", description: "This helps us understand the community you're joining. A general area is enough." },
   { label: "INTERESTS", title: "Where would you like to help?", description: "Choose the areas that interest you. You can select more than one." },
-  { label: "EXPERIENCE", title: "What can you bring to the table?", description: "Tell us about skills, experience, or something you'd like to learn. This is optional." },
+  { label: "EXPERIENCE", title: "What can you bring to the table?", description: "Tell us about skills, experience, or something you&apos;d like to learn. This is optional." },
   { label: "AVAILABILITY", title: "What does your time look like?", description: "There is no required weekly commitment. Let us know what is realistic for you." },
   { label: "MOTIVATION", title: "What brought you here?", description: "In a few words, tell us why you'd like to volunteer. This is optional." },
   { label: "REVIEW", title: "Ready to send your interest?", description: "Take a moment to review your answers before submitting." },
