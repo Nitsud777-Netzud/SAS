@@ -5,32 +5,32 @@ import { useEffect } from "react";
 
 const sources = [
   {
-    title: "Congressional Research Service — Automated License Plate Readers: Background and Legal Issues (2025)",
+    title: "Congressional Research Service: Automated License Plate Readers: Background and Legal Issues (2025)",
     url: "https://www.everycrsreport.com/files/2025-07-21_IF13068_d076b3f2758840a215785396995668a915d5881f.pdf",
     note: "A nonpartisan overview of ALPR operation, law-enforcement uses, and legal questions.",
   },
   {
-    title: "Electronic Frontier Foundation — Automatic License Plate Readers",
+    title: "Electronic Frontier Foundation: Automatic License Plate Readers",
     url: "https://www.eff.org/files/2026/02/05/2025.11_alpr_one_pager_-_final.pdf",
     note: "A civil-liberties explanation of how plate reads become searchable location histories.",
   },
   {
-    title: "American Civil Liberties Union — Fight Creepy ALPR Cameras",
+    title: "American Civil Liberties Union: Fight Creepy ALPR Cameras",
     url: "https://www.aclu.org/campaigns-initiatives/get-the-flock-out",
     note: "Research and advocacy concerning Flock's ALPR network and risks from broad data access.",
   },
   {
-    title: "American Civil Liberties Union — Other ALPR Vendors",
+    title: "American Civil Liberties Union: Other ALPR Vendors",
     url: "https://www.aclu.org/news/privacy-technology/tracking-alpr-cameras/other-alpr-vendors",
     note: "A comparison of vendor capabilities, retention practices, and AI-enabled image search.",
   },
   {
-    title: "Axon — Written testimony on ALPR technology (September 2026)",
+    title: "Axon: Written testimony on ALPR technology (September 2026)",
     url: "https://apps.legislature.ky.gov/CommitteeDocuments/8/44416/5.%20Automatic%20License%20Plate%20Readers%20%28Axon%20Statement%29.pdf",
-    note: "A vendor&apos;s own description of its ALPR product and claimed safeguards; read alongside independent sources.",
+    note: "A vendor's own description of its ALPR product and claimed safeguards; read alongside independent sources.",
   },
   {
-    title: "Federal Register — Flock Safety ALPR system privacy notice (2024)",
+    title: "Federal Register: Flock Safety ALPR system privacy notice (2024)",
     url: "https://www.govinfo.gov/content/pkg/FR-2024-04-22/pdf/2024-08473.pdf",
     note: "A government-published description of Flock system data and retention in a specific federal deployment.",
   },
@@ -73,12 +73,12 @@ export default function KnowWhoIsWatchingYou() {
           <h2>Axon and Flock Safety.</h2>
           <p><strong>Axon Enterprise</strong> is a public-safety technology company known for products such as body-worn cameras, conducted-energy devices, digital evidence services, and software for police agencies. Its product portfolio also includes automated license-plate recognition (ALPR) technology and vehicle-attribute analysis.</p>
           <p><strong>Flock Safety</strong> is a public-safety technology company whose best-known products include fixed ALPR cameras and a cloud-based platform used by law-enforcement agencies and other customers. Its systems can record vehicle observations and make them searchable by authorized users, depending on the customer&apos;s configuration and agreements.</p>
-          <p>Both companies sell technology to public-safety organizations, but their product designs, contracts, data-sharing settings, retention rules, and customer policies can differ. A responsible review must examine the actual local contract and configuration—not assume every deployment works the same way.</p>
+          <p>Both companies sell technology to public-safety organizations, but their product designs, contracts, data-sharing settings, retention rules, and customer policies can differ. A responsible review must examine the actual local contract and configuration, not assume every deployment works the same way.</p>
         </section>
 
         <section>
           <p className="section-label">02 / THE TECHNOLOGY</p>
-          <h2>What is an ALPR—and how does it work?</h2>
+          <h2>What is an ALPR, and how does it work?</h2>
           <p>An automated license-plate reader uses a camera and software to detect a vehicle and read its license plate. A system may also record an image, the time and location of the observation, and details such as vehicle make, model, body style, or color.</p>
           <ol className="article-steps">
             <li><span>01</span><div><strong>Capture</strong><p>A fixed roadside camera or a camera mounted on a vehicle records an image as a vehicle passes.</p></div></li>
@@ -95,7 +95,7 @@ export default function KnowWhoIsWatchingYou() {
           <h2>Why should communities oppose mass deployment?</h2>
           <p>S.A.S. opposes indiscriminate, poorly governed vehicle surveillance because the collection can affect people who are not suspected of wrongdoing. The concern is not limited to one camera: when observations are retained and connected across locations, they can create a record of where a vehicle has been over time.</p>
           <ul className="article-points">
-            <li><strong>Movement becomes searchable.</strong> Repeated location records can reveal routines and sensitive visits—such as trips to medical facilities, places of worship, schools, or political gatherings.</li>
+            <li><strong>Movement becomes searchable.</strong> Repeated location records can reveal routines and sensitive visits, such as trips to medical facilities, places of worship, schools, or political gatherings.</li>
             <li><strong>Access can expand beyond the original purpose.</strong> Inter-agency sharing and broad search permissions can make a local camera network part of a much larger system. The public should know who can search it and under what rules.</li>
             <li><strong>Errors can have consequences.</strong> Automated reads and vehicle classifications are not infallible. A mistaken plate read or an unreliable watchlist entry can create an investigative lead that deserves careful human verification.</li>
             <li><strong>Oversight may lag behind capability.</strong> A vendor&apos;s privacy promises are not a substitute for enforceable local rules, public reporting, independent audits, and meaningful consequences for misuse.</li>
@@ -108,7 +108,7 @@ export default function KnowWhoIsWatchingYou() {
           <p className="section-label">04 / RESEARCH AND ACCOUNTABILITY</p>
           <h2>What does the evidence say?</h2>
           <p>There is no single national configuration. The most reliable way to understand a local system is to compare vendor documentation with public contracts, agency policies, retention schedules, access logs, audit reports, and independent research.</p>
-          <p>The Congressional Research Service explains the basic technology and legal questions. The EFF and ACLU document civil-liberties concerns, including the implications of turning plate observations into searchable histories and sharing data across jurisdictions. Vendor statements are also useful—but should be read as descriptions of the company&apos;s own product and claims, not as independent evaluations.</p>
+          <p>The Congressional Research Service explains the basic technology and legal questions. The EFF and ACLU document civil-liberties concerns, including the implications of turning plate observations into searchable histories and sharing data across jurisdictions. Vendor statements are also useful, but should be read as descriptions of the company&apos;s own product and claims, not as independent evaluations.</p>
           <p>Research and reporting should distinguish documented system capabilities from claims about how a particular agency actually uses them. Where a concern is based on a lawsuit, audit, or reported incident, identify the source and its status rather than presenting an allegation as a proven finding.</p>
           <div className="article-source-list">
             <h3>Sources to read</h3>
@@ -145,7 +145,7 @@ export default function KnowWhoIsWatchingYou() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <div><Link href="/" className="wordmark footer-wordmark">S.A.S.</Link><p>Students Against Surveillance — youth-led organizing for privacy, transparency, and student voice.</p></div>
+          <div><Link href="/" className="wordmark footer-wordmark">S.A.S.</Link><p>Students Against Surveillance: youth-led organizing for privacy, transparency, and student voice.</p></div>
           <Link href="/#top" className="back-to-top">BACK TO TOP ↑</Link>
           <p className="footer-location">INLAND EMPIRE <span>•</span> CALIFORNIA</p>
         </div>
