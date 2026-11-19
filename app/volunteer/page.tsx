@@ -180,7 +180,7 @@ export default function VolunteerPage() {
               )}
 
               {step === 3 && (
-                <div><FieldLabel htmlFor="volunteer-skills" optional>Skills, experience, or something you'd like to learn</FieldLabel><textarea id="volunteer-skills" rows={5} value={answers.skills} onChange={(event) => update("skills", event.target.value)} placeholder="Tell us about any relevant experience, interests, or skills you'd like to develop." /></div>
+                <div><FieldLabel htmlFor="volunteer-skills" optional>Skills, experience, or something you would like to learn</FieldLabel><textarea id="volunteer-skills" rows={5} value={answers.skills} onChange={(event) => update("skills", event.target.value)} placeholder="Tell us about any relevant experience, interests, or skills you'd like to develop." /></div>
               )}
 
               {step === 4 && (
