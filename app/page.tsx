@@ -109,7 +109,7 @@ export default function Home() {
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
         </nav>
-        <a className="header-cta" href="#get-involved">TAKE PART <span aria-hidden="true">↗</span></a>
+        <a className="header-cta" href="/volunteer">TAKE PART <span aria-hidden="true">↗</span></a>
         <button
           className="menu-toggle"
           type="button"
@@ -145,7 +145,7 @@ export default function Home() {
           <div className="hero-bottom">
             <p className="hero-intro">We are a youth-led organization working to challenge ALPRs and related surveillance technologies, and build a future where students and communities have a real say in how they are watched.</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#get-involved">TAKE PART <span aria-hidden="true">↗</span></a>
+              <a className="button button-primary" href="/volunteer">TAKE PART <span aria-hidden="true">↗</span></a>
               <a className="button button-secondary" href="#the-issue">UNDERSTAND THE ISSUE <span aria-hidden="true">↘</span></a>
             </div>
           </div>
