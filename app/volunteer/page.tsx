@@ -160,7 +160,7 @@ export default function VolunteerPage() {
               {step === 1 && (
                 <div className="volunteer-fields">
                   <div><FieldLabel htmlFor="volunteer-birth-date">Date of birth</FieldLabel><input id="volunteer-birth-date" type="date" autoComplete="bday" max={new Date().toISOString().slice(0, 10)} value={answers.birthDate} onChange={(event) => update("birthDate", event.target.value)} required /></div>
-                  <div><FieldLabel htmlFor="volunteer-zip">ZIP code</FieldLabel><input id="volunteer-zip" inputMode="numeric" autoComplete="postal-code" pattern="\\d{5}(-\\d{4})?" maxLength={10} value={answers.zipCode} onChange={(event) => update("zipCode", event.target.value)} placeholder="92359" required /></div>
+                  <div><FieldLabel htmlFor="volunteer-zip">ZIP code</FieldLabel><input id="volunteer-zip" inputMode="numeric" autoComplete="postal-code" pattern="\d{5}(-\d{4})?" maxLength={10} value={answers.zipCode} onChange={(event) => update("zipCode", event.target.value)} placeholder="92359" required /></div>
                 </div>
               )}
 
