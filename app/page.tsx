@@ -4,16 +4,11 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 
 const navigation = [
   { label: "ABOUT", href: "#about" },
-  { label: "THE ISSUE", href: "#the-issue" },
   { label: "RESEARCH", href: "#research" },
   { label: "UPDATES", href: "#updates" },
 ];
 
-const issueCards = [
-  { number: "01", title: "KNOW WHO IS WATCHING YOU", description: "A clear, sourced explainer on Axon, Flock Safety, automated license-plate readers, and the case for public oversight.", href: "/know-who-is-watching-you" },
-];
-
-const eyes = [
+issue card dataconst eyes = [
   ["8%", "12%", "-8deg"], ["25%", "30%", "9deg"], ["42%", "10%", "-3deg"],
   ["61%", "25%", "12deg"], ["78%", "9%", "-10deg"], ["90%", "36%", "5deg"],
   ["16%", "62%", "7deg"], ["36%", "76%", "-12deg"], ["55%", "58%", "4deg"],
@@ -50,34 +45,12 @@ function SocialIcon({ platform }: { platform: "instagram" | "x" | "tiktok" | "yo
   );
 }
 
-function Watcher() {
-  return (
-    <div className="watcher-popup">
-      <div className="watcher-scan" aria-hidden="true" />
-      <p className="watcher-meta">SURVEILLANCE FEED / SUBJECT 01</p>
-      <div className="watcher-face" aria-hidden="true"><div className="watcher-eyes" /></div>
-      <div className="watcher-sign" aria-hidden="true">I AM!</div>
-    </div>
-  );
-}
-
 function SectionLabel({ number, children }: { number: string; children: ReactNode }) {
   return <p className="section-label"><span>{number}</span> / {children}</p>;
 }
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [watcherOpen, setWatcherOpen] = useState(false);
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
-  const watcherTriggerRef = useRef<HTMLButtonElement | null>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (watcherOpen && !dialog.open) dialog.showModal();
-    if (!watcherOpen && dialog.open) dialog.close();
-  }, [watcherOpen]);
-
   useEffect(() => {
     const root = document.documentElement;
     const updateScrollbar = () => {
@@ -94,12 +67,6 @@ export default function Home() {
       root.classList.remove("red-scrollbar");
     };
   }, []);
-
-  const closeWatcher = () => {
-    if (dialogRef.current?.open) dialogRef.current.close();
-    setWatcherOpen(false);
-    watcherTriggerRef.current?.focus();
-  };
 
   return (
     <main>
@@ -146,8 +113,7 @@ export default function Home() {
             <p className="hero-intro">We are a youth-led organization working to challenge ALPRs and related surveillance technologies, and build a future where students and communities have a real say in how they are watched.</p>
             <div className="hero-actions">
               <a className="button button-primary" href="/volunteer">TAKE PART <span aria-hidden="true">↗</span></a>
-              <a className="button button-secondary" href="#the-issue">UNDERSTAND THE ISSUE <span aria-hidden="true">↘</span></a>
-            </div>
+                          </div>
           </div>
         </div>
       </section>
@@ -166,28 +132,6 @@ export default function Home() {
             <h2>Privacy affects every student.</h2>
             <p>S.A.S. is based in Redlands and the Inland Empire. We are building a youth movement to research, explain, and organize around surveillance in our schools and communities.</p>
             <p>Our work starts with clear information, public accountability, and the belief that the people affected by surveillance deserve a meaningful voice in decisions about it.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="the-issue" className="issue-section" aria-labelledby="issue-title">
-        <div className="container">
-          <div className="section-heading">
-            <div>
-              <SectionLabel number="02">THE ISSUE</SectionLabel>
-              <h2 id="issue-title">Know who is<br />watching you.</h2>
-            </div>
-            <p>Surveillance technology can shape what people feel comfortable saying, doing, and organizing. Understanding the systems, and the rules governing them, is a starting point for meaningful public debate.</p>
-          </div>
-          <div className="issue-cards single-issue-card">
-            {issueCards.map((issue) => (
-              <a href={issue.href} key={issue.number} className="issue-card">
-                <span className="card-number">{issue.number}</span>
-                <h3>{issue.title}</h3>
-                <p>{issue.description}</p>
-                <span className="card-link">READ THE ARTICLE <span aria-hidden="true">↗</span></span>
-              </a>
-            ))}
           </div>
         </div>
       </section>
@@ -228,9 +172,8 @@ export default function Home() {
           <SectionLabel number="04">PARTICIPATE</SectionLabel>
           <h2>Make privacy<br />a public<br /><span>question.</span></h2>
           <div className="cta-copy">
-            <p>Learn how the technology works. Check the rules your district follows. Then bring clear, specific questions to the people making decisions.</p>
-            <p className="contact-note">Start with the S.A.S. explainer, use its questions as a guide, and make student privacy part of the public conversation.</p>
-            <a className="button button-dark" href="/know-who-is-watching-you">READ THE GUIDE <span aria-hidden="true">↗</span></a>
+            <p>Help build a youth-led effort for privacy, transparency, and student voice. Bring your perspective, skills, and questions to the work.</p>
+            <a className="button button-dark" href="/volunteer">GET INVOLVED <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
@@ -243,27 +186,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <button
-        ref={watcherTriggerRef}
-        type="button"
-        className="watcher-trigger"
-        onClick={() => setWatcherOpen(true)}
-        aria-label="Open the surveillance illustration"
-      >?</button>
-      <dialog
-        ref={dialogRef}
-        className="watcher-dialog"
-        aria-labelledby="watcher-title"
-        onCancel={() => setWatcherOpen(false)}
-        onClose={() => {
-          setWatcherOpen(false);
-          watcherTriggerRef.current?.focus();
-        }}
-      >
-        <div className="dialog-heading"><p id="watcher-title">SURVEILLANCE FEED / SUBJECT 01</p><button type="button" onClick={closeWatcher} aria-label="Close illustration">CLOSE ×</button></div>
-        <Watcher />
-        <p className="dialog-caption">A visual reminder: ask what is collected, who can access it, and what rules apply.</p>
-      </dialog>
+
     </main>
   );
 }
