@@ -8,7 +8,7 @@ const navigation = [
   { label: "UPDATES", href: "#updates" },
 ];
 
-issue card dataconst eyes = [
+const eyes = [
   ["8%", "12%", "-8deg"], ["25%", "30%", "9deg"], ["42%", "10%", "-3deg"],
   ["61%", "25%", "12deg"], ["78%", "9%", "-10deg"], ["90%", "36%", "5deg"],
   ["16%", "62%", "7deg"], ["36%", "76%", "-12deg"], ["55%", "58%", "4deg"],
