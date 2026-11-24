@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import SiteHeader from "../components/site-header";
 import { useMemo, useState, type FormEvent } from "react";
 
 type Answers = {
@@ -102,15 +103,7 @@ export default function VolunteerPage() {
 
   return (
     <main className="volunteer-page">
-      <header className="site-header container">
-        <Link href="/" className="wordmark" aria-label="Students Against Surveillance home">S.A.S.</Link>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          <Link href="/#about">ABOUT</Link>
-          <Link href="/#the-issue">THE ISSUE</Link>
-          <Link href="/#updates">WHAT&apos;S HAPPENING</Link>
-        </nav>
-        <Link className="header-cta" href="/">BACK TO HOME <span aria-hidden="true">↗</span></Link>
-      </header>
+      <SiteHeader />
 
       <section className="volunteer-hero grid-bg">
         <div className="container">
