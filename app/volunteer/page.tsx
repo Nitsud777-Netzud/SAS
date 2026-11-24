@@ -6,8 +6,9 @@ import { useMemo, useState, type FormEvent } from "react";
 type Answers = {
   name: string;
   email: string;
-  age: string;
-  location: string;
+  phone: string;
+  birthDate: string;
+  zipCode: string;
   interests: string[];
   skills: string;
   availability: string;
@@ -17,8 +18,9 @@ type Answers = {
 const initialAnswers: Answers = {
   name: "",
   email: "",
-  age: "",
-  location: "",
+  phone: "",
+  birthDate: "",
+  zipCode: "",
   interests: [],
   skills: "",
   availability: "",
@@ -27,11 +29,11 @@ const initialAnswers: Answers = {
 
 const steps = [
   { label: "BASICS", title: "Let's start with the basics.", description: "What should we call you, and how can S.A.S. reach you?" },
-  { label: "ABOUT YOU", title: "A little about you.", description: "This helps us understand the community you're joining. A general area is enough." },
+  { label: "ABOUT YOU", title: "A little about you.", description: "This helps us understand the community you're joining." },
   { label: "INTERESTS", title: "Where would you like to help?", description: "Choose the areas that interest you. You can select more than one." },
-  { label: "EXPERIENCE", title: "What can you bring to the table?", description: "Tell us about skills, experience, or something you&apos;d like to learn. This is optional." },
+  { label: "EXPERIENCE", title: "What can you bring to the table?", description: "Tell us about skills, experience, or something you would like to learn." },
   { label: "AVAILABILITY", title: "What does your time look like?", description: "There is no required weekly commitment. Let us know what is realistic for you." },
-  { label: "MOTIVATION", title: "What brought you here?", description: "In a few words, tell us why you'd like to volunteer. This is optional." },
+  { label: "MOTIVATION", title: "What brought you here?", description: "In a few words, tell us why you'd like to volunteer." },
   { label: "REVIEW", title: "Ready to send your interest?", description: "Take a moment to review your answers before submitting." },
 ];
 
@@ -43,8 +45,8 @@ const interestOptions = [
   ["Other", "Bring another skill, idea, or perspective."],
 ];
 
-function FieldLabel({ htmlFor, children, optional = false }: { htmlFor: string; children: React.ReactNode; optional?: boolean }) {
-  return <label className="volunteer-field-label" htmlFor={htmlFor}>{children}{optional && <span>OPTIONAL</span>}</label>;
+function FieldLabel({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) {
+  return <label className="volunteer-field-label" htmlFor={htmlFor}>{children}</label>;
 }
 
 export default function VolunteerPage() {
@@ -67,15 +69,19 @@ export default function VolunteerPage() {
   };
 
   const canContinue = () => {
-    if (step === 0) return answers.name.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(answers.email);
-    if (step === 1) return Boolean(answers.age);
+    if (step === 0) return answers.name.trim().length > 1 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(answers.email) && answers.phone.trim().length >= 7;
+    if (step === 1) return Boolean(answers.birthDate) && /^\d{5}(?:-\d{4})?$/.test(answers.zipCode);
     if (step === 2) return answers.interests.length > 0;
+    if (step === 3) return answers.skills.trim().length > 0;
+    if (step === 4) return Boolean(answers.availability);
+    if (step === 5) return answers.motivation.trim().length > 0;
     return true;
   };
 
   const next = () => {
     if (!canContinue()) {
-      setNotice(step === 0 ? "Add your name and a valid email address to continue." : step === 1 ? "Choose an age range to continue." : "Choose at least one area of interest.");
+      const messages = ["Add your name, a valid email address, and phone number to continue.", "Enter your date of birth and a valid 5-digit ZIP code.", "Choose at least one area of interest.", "Tell us about your skills or what you would like to learn.", "Select your availability.", "Tell us why you would like to volunteer."];
+      setNotice(messages[step] ?? "Complete this step to continue.");
       return;
     }
     setNotice("");
@@ -125,7 +131,7 @@ export default function VolunteerPage() {
           <aside className="volunteer-aside">
             <p className="section-label">VOLUNTEER INTAKE</p>
             <h2>Every contribution moves the work forward.</h2>
-            <p>This is an expression of interest, not an employment application. There is no required weekly commitment, and you can skip the optional questions.</p>
+            <p>This is an expression of interest, not an employment application. There is no required weekly commitment, </p>
             <p className="volunteer-privacy">Your answers stay in this form until you choose to submit. Do not include sensitive personal information.</p>
           </aside>
 
@@ -147,22 +153,14 @@ export default function VolunteerPage() {
                 <div className="volunteer-fields">
                   <div><FieldLabel htmlFor="volunteer-name">Your name</FieldLabel><input id="volunteer-name" autoComplete="name" value={answers.name} onChange={(event) => update("name", event.target.value)} placeholder="Enter your name" required /></div>
                   <div><FieldLabel htmlFor="volunteer-email">Email address</FieldLabel><input id="volunteer-email" type="email" autoComplete="email" value={answers.email} onChange={(event) => update("email", event.target.value)} placeholder="you@example.com" required /></div>
+                  <div><FieldLabel htmlFor="volunteer-phone">Phone number</FieldLabel><input id="volunteer-phone" type="tel" autoComplete="tel" value={answers.phone} onChange={(event) => update("phone", event.target.value)} placeholder="(555) 555-5555" required /></div>
                 </div>
               )}
 
               {step === 1 && (
                 <div className="volunteer-fields">
-                  <fieldset className="volunteer-choice-group">
-                    <legend className="volunteer-field-label">Age range</legend>
-                    {["Under 18", "18 or older"].map((age) => (
-                      <label className={`volunteer-choice ${answers.age === age ? "is-selected" : ""}`} key={age}>
-                        <input type="radio" name="age" value={age} checked={answers.age === age} onChange={() => update("age", age)} />
-                        <span>{age}</span><i aria-hidden="true" />
-                      </label>
-                    ))}
-                  </fieldset>
-                  <div><FieldLabel htmlFor="volunteer-location" optional>City or general area</FieldLabel><input id="volunteer-location" autoComplete="address-level2" value={answers.location} onChange={(event) => update("location", event.target.value)} placeholder="e.g. Inland Empire" /></div>
-                  <p className="volunteer-helper">We only ask for an age range, not your date of birth. If you are under 18, any future participation will follow appropriate adult-supervision safeguards.</p>
+                  <div><FieldLabel htmlFor="volunteer-birth-date">Date of birth</FieldLabel><input id="volunteer-birth-date" type="date" autoComplete="bday" max={new Date().toISOString().slice(0, 10)} value={answers.birthDate} onChange={(event) => update("birthDate", event.target.value)} required /></div>
+                  <div><FieldLabel htmlFor="volunteer-zip">ZIP code</FieldLabel><input id="volunteer-zip" inputMode="numeric" autoComplete="postal-code" pattern="\\d{5}(-\\d{4})?" maxLength={10} value={answers.zipCode} onChange={(event) => update("zipCode", event.target.value)} placeholder="92359" required /></div>
                 </div>
               )}
 
@@ -180,7 +178,7 @@ export default function VolunteerPage() {
               )}
 
               {step === 3 && (
-                <div><FieldLabel htmlFor="volunteer-skills" optional>Skills, experience, or something you would like to learn</FieldLabel><textarea id="volunteer-skills" rows={5} value={answers.skills} onChange={(event) => update("skills", event.target.value)} placeholder="Tell us about any relevant experience, interests, or skills you'd like to develop." /></div>
+                <div><FieldLabel htmlFor="volunteer-skills">Skills, experience, or something you would like to learn</FieldLabel><textarea id="volunteer-skills" rows={5} value={answers.skills} onChange={(event) => update("skills", event.target.value)} placeholder="Tell us about any relevant experience, interests, or skills you'd like to develop." required /></div>
               )}
 
               {step === 4 && (
@@ -192,24 +190,24 @@ export default function VolunteerPage() {
                       <span>{option}</span><i aria-hidden="true" />
                     </label>
                   ))}
-                  <button className="text-skip" type="button" onClick={next}>SKIP THIS QUESTION ↗</button>
                 </fieldset>
               )}
 
               {step === 5 && (
-                <div><FieldLabel htmlFor="volunteer-motivation" optional>Why would you like to volunteer?</FieldLabel><textarea id="volunteer-motivation" rows={5} value={answers.motivation} onChange={(event) => update("motivation", event.target.value)} placeholder="What made you interested in getting involved?" /><button className="text-skip" type="button" onClick={next}>SKIP THIS QUESTION ↗</button></div>
+                <div><FieldLabel htmlFor="volunteer-motivation">Why would you like to volunteer?</FieldLabel><textarea id="volunteer-motivation" rows={5} value={answers.motivation} onChange={(event) => update("motivation", event.target.value)} placeholder="What made you interested in getting involved?" required /></div>
               )}
 
               {step === 6 && (
                 <div className="volunteer-review">
                   <div><span>NAME</span><strong>{answers.name}</strong></div>
                   <div><span>EMAIL</span><strong>{answers.email}</strong></div>
-                  <div><span>AGE RANGE</span><strong>{answers.age}</strong></div>
-                  <div><span>GENERAL AREA</span><strong>{answers.location || "Not provided"}</strong></div>
+                  <div><span>PHONE</span><strong>{answers.phone}</strong></div>
+                  <div><span>DATE OF BIRTH</span><strong>{answers.birthDate}</strong></div>
+                  <div><span>ZIP CODE</span><strong>{answers.zipCode}</strong></div>
                   <div><span>AREAS OF INTEREST</span><strong>{answers.interests.join(", ")}</strong></div>
-                  <div><span>SKILLS & EXPERIENCE</span><strong>{answers.skills || "Not provided"}</strong></div>
-                  <div><span>AVAILABILITY</span><strong>{answers.availability || "Not provided"}</strong></div>
-                  <div><span>MOTIVATION</span><strong>{answers.motivation || "Not provided"}</strong></div>
+                  <div><span>SKILLS & EXPERIENCE</span><strong>{answers.skills}</strong></div>
+                  <div><span>AVAILABILITY</span><strong>{answers.availability}</strong></div>
+                  <div><span>MOTIVATION</span><strong>{answers.motivation}</strong></div>
                 </div>
               )}
             </div>
