@@ -1,12 +1,7 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
-
-const navigation = [
-  { label: "ABOUT", href: "#about" },
-  { label: "RESEARCH", href: "#research" },
-  { label: "UPDATES", href: "#updates" },
-];
+import { useEffect, type CSSProperties, type ReactNode } from "react";
+import SiteHeader from "./components/site-header";
 
 const eyes = [
   ["8%", "12%", "-8deg"], ["25%", "30%", "9deg"], ["42%", "10%", "-3deg"],
@@ -50,7 +45,6 @@ function SectionLabel({ number, children }: { number: string; children: ReactNod
 }
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const root = document.documentElement;
     const updateScrollbar = () => {
@@ -71,27 +65,7 @@ export default function Home() {
   return (
     <main>
       <a className="skip-link" href="#main-content">Skip to content</a>
-      <header className="site-header container">
-        <a href="#top" className="wordmark" aria-label="Students Against Surveillance home">S.A.S.</a>
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
-        </nav>
-        <a className="header-cta" href="/volunteer">TAKE PART <span aria-hidden="true">↗</span></a>
-        <button
-          className="menu-toggle"
-          type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >{menuOpen ? "CLOSE" : "MENU"}</button>
-      </header>
-
-      <nav id="mobile-navigation" className={`mobile-nav ${menuOpen ? "is-open" : ""}`} aria-label="Mobile navigation" hidden={!menuOpen}>
-        {navigation.map((item) => (
-          <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></a>
-        ))}
-      </nav>
+      <SiteHeader />
 
       <div className="marquee" aria-label="Students Against Surveillance. Inland Empire, California and beyond">
         <div className="marquee-track" aria-hidden="true">
@@ -111,9 +85,6 @@ export default function Home() {
           <h1 id="hero-title" className="hero-word">Students<br /><span>Against</span><br />Surveillance.</h1>
           <div className="hero-bottom">
             <p className="hero-intro">We are a youth-led organization working to challenge ALPRs and related surveillance technologies, and build a future where students and communities have a real say in how they are watched.</p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="/volunteer">TAKE PART <span aria-hidden="true">↗</span></a>
-                          </div>
           </div>
         </div>
       </section>
@@ -170,10 +141,10 @@ export default function Home() {
       <section id="get-involved" className="final-cta">
         <div className="container cta-inner">
           <SectionLabel number="04">PARTICIPATE</SectionLabel>
-          <h2>Make privacy<br />a public<br /><span>question.</span></h2>
+          <h2>Make privacy<br />a public<br /><span>priority.</span></h2>
           <div className="cta-copy">
-            <p>Help build a youth-led effort for privacy, transparency, and student voice. Bring your perspective, skills, and questions to the work.</p>
-            <a className="button button-dark" href="/volunteer">GET INVOLVED <span aria-hidden="true">↗</span></a>
+            <p>Volunteer with Students Against Surveillance. Help research surveillance, share clear information, and organize for privacy and student voice in our schools and communities.</p>
+            <a className="button button-dark" href="/volunteer">VOLUNTEER <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
